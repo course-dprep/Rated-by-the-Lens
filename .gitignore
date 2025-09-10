@@ -8,3 +8,8 @@
 =======
 .Rproj.user
 >>>>>>> a2d89e5 (add file)
+.DS_Store
+.Rhistory
+.Rproj.user/
+.RData
+.Ruserdata
