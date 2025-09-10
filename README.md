@@ -4,7 +4,7 @@
 >  
 > Feel free to delete this text.
 
-testS
+test
 
 # Title of your Project
 *Describe the purpose of this project* 
