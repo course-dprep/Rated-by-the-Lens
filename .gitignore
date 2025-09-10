@@ -1,13 +1,3 @@
-
-.DS_Store
-<<<<<<< HEAD
-.RData
-.Rhistory
-.Rproj.user/
-.Ruserdata
-=======
-.Rproj.user
->>>>>>> a2d89e5 (add file)
 .DS_Store
 .Rhistory
 .Rproj.user/
