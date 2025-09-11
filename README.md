@@ -8,6 +8,12 @@ The influence of reviews is especially pronounced in the case of “experience g
 
 **“To what extent does the number of photos associated with a restaurant on Yelp impact its average rating, and how does the type of photo(food, environment, menu) moderate this relationship?”**
 
+## Managerial Relevance
+
+From a managerial perspective, restaurant owners and managers may benefit from the findings of this project by using evidence on the total number and type of photos. In turn, the aforementioned stakeholders may gain a deeper understanding on how to raise ratings per restaurant, reduce average rating volatility and increase visibility and engagement. This is beneficial as Luca (2016) concluded that the average rating of a restaurant guides customers to make informed decisions. Ultimately, this may lead to an improved reputation and subsequently increased customer demand.
+
+Furthermore, managers can enhance their marketing strategy by strategically encouraging customers to publish reviews with photos on platforms such as Yelp or Tripadvisor as it reduces customer uncertainty. To encourage reviews that include photos, managers may add QR codes on the menu or receipts that could incentivize customers with rewards for the uploaded photos. Additional innovative approaches are table toppers and Wi-Fi login prompts inviting the customers to share a photo of the dish or environment. By prompting customers to share additional photos, managers may be more inclined to detect recurring issues, creating a feedback loop.
+
 ## Data
 
 Firstly, to collect the required data, the datasets “dataset_business" and "dataset_photos" have been downloaded from Yelp Open Dataset, see https://business.yelp.com/data/resources/open-dataset/. Accordingly, we have built an R pipeline (tidyr and dyplr) that merged and cleaned the data.
