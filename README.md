@@ -1,11 +1,5 @@
-> **Important:** This is a template repository to help you set up your team project.  
->  
-> You are free to modify it based on your needs. For example, if your data is downloaded using *multiple* scripts instead of a single one (as shown in `\data\`), structure the code accordingly. The same applies to all other starter files—adapt or remove them as needed.  
->  
-> Feel free to delete this text.
 
-
-# Title of your Project
+# The Impact of Photos on Restaurant Ratings: Evidence from Yelp
 *Describe the purpose of this project* 
 
 ## Motivation
@@ -49,11 +43,4 @@ The project is implemented by team 9 members:
 Amelia Syta, Carla Alboquers Coll, Ezgi Torbala, Shery Khalil, Sophie Wolf
 
 ## References
-
-Li, C., Kwok, L., Xie, K. L., Liu, J., & Ye, Q. (2021). Let Photos Speak: The Effect of User-Generated Visual Content on Hotel Review Helpfulness. Journal of Hospitality & Tourism Research, 47(4), 109634802110191. https://doi.org/10.1177/10963480211019113
-Luca, M. (2016). Reviews, Reputation, and Revenue: The Case of Yelp.com. Harvard Business School NOM Unit Working Paper, 12(016). https://doi.org/10.2139/ssrn.1928601
-Parikh, A., Behnke, C., Vorvoreanu, M., Almanza, B., & Nelson, D. (2014). Motives for reading and articulating user-generated restaurant reviews on Yelp.com. Journal of Hospitality and Tourism Technology, 5(2), 160–176. https://doi.org/10.1108/jhtt-04-2013-0011
-Wang, Y., Kim, J., & Kim, J. (2021). The financial impact of online customer reviews in the restaurant industry: A moderating effect of brand equity. International Journal of Hospitality Management, 95, 102895. https://doi.org/10.1016/j.ijhm.2021.102895
-Weisskopf, D. J.-P. (2018, September 30). Online Customer Reviews: Their Impact on Restaurants. Hospitalityinsights.ehl.edu. https://hospitalityinsights.ehl.edu/online-customer-reviews-restaurants
-
-
+(Paste reference list here)
