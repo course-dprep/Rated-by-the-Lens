@@ -1,12 +1,11 @@
 
-# The Impact of Photos on Restaurant Ratings: Evidence from Yelp 
+# The Impact of Photos on Restaurant Ratings: Evidence from Yelp
 *Describe the purpose of this project* 
 
 ## Motivation
 The influence of online reviews and electronic word of mouth (eWOM) on consumer perceptions and decision-making is evident in today’s digital society (Wang et al., 2021). As such, this phenomenon has been widely researched in marketing.
-The influence of reviews is especially pronounced in the case of “experience goods,” such as restaurant services, which are perceived as riskier to evaluate before purchase (Weisskopf, 2018). A study helps to understand this, explaining that by reading restaurant reviews, customers are able to reduce this perceived risk (Parikh et al., 2014). Another study further supports this, finding that “a one-star increase in Yelp rating leads to a 5–9 percent increase in revenue” (Luca, p.  3, 2016). Moreover, now more than ever, pictures have become a common addition to online reviews (Li et al., 2021). However, while text-based reviews have been extensively studied, the association between the number of photos and a restaurant’s average rating remains underexplored. Additionally, research is limited in regards to how different types of pictures (food, environment, or menu) might impact this relationship. To address this gap in the literature, this study aims to investigate:
-
-**“To what extent does the number of photos associated with a restaurant on Yelp impact its average rating, and how does the type of picture (food, environment, menu) moderate this relationship? ”**
+The influence of reviews is especially pronounced in the case of “experience goods,” such as restaurant services, which are perceived as riskier to evaluate before purchase (Weisskopf, 2018). Previous findings suggest that by reading restaurant reviews, customers are able to reduce this perceived risk (Parikh et al., 2014). Further supporting this claim, Luca (2016, p.3) demonstrates that  “a one-star increase in Yelp rating leads to a 5–9 percent increase in revenue”. Increasingly, have become a common addition to online reviews (Li et al., 2021). However, while text-based reviews have been extensively studied, the association between the number of photos and a restaurant’s average rating remains underexplored. Current literature is limited with regard to how different types of photos (food, environment, or menu) might impact this relationship. To address this gap in the literature, the following research question has been formulated:
+**“To what extent does the number of photos associated with a restaurant on Yelp impact its average rating, and how does the type of photo(food, environment, menu) moderate this relationship?”**
 
 ## Data
 
