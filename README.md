@@ -1,5 +1,5 @@
 
-# The Impact of Photos on Restaurant Ratings: Evidence from Yelp
+# The Impact of Photos on Restaurant Ratings: Evidence from Yelp 
 *Describe the purpose of this project* 
 
 ## Motivation
