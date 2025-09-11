@@ -52,7 +52,25 @@ Here, “Menu” is the sole dummy variable where 1 occurs when menu/price photo
 
 ## Dependencies 
 
-*Explain any tools or packages that need to be installed to run this workflow.*
+This project relies on several R packages for data manipulation, cleaning, and visualization. Please make sure the following libraries are installed before running the scripts:
+
+dplyr – used for data wrangling and manipulation
+
+tidyr – used for tidying and reshaping datasets
+
+ggplot2 – used for creating visualizations and plots
+
+To install these packages (if not already installed), run the following in R:
+
+install.packages(c("dplyr", "tidyr", "ggplot2"))
+
+
+Once installed, the libraries can be loaded with:
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
 
 ## Running Instructions 
 
