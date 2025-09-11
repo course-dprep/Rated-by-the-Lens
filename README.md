@@ -8,7 +8,9 @@ The influence of reviews is especially pronounced in the case of “experience g
 
 **“To what extent does the number of photos associated with a restaurant on Yelp impact its average rating, and how does the type of photo(food, environment, menu) moderate this relationship?”**
 
+-------------------------------------------------------
 ## Managerial Relevance
+-------------------------------------------------------
 
 From a managerial perspective, restaurant owners and managers may benefit from the findings of this project by using evidence on the total number and type of photos. In turn, the aforementioned stakeholders may gain a deeper understanding on how to raise ratings per restaurant, reduce average rating volatility and increase visibility and engagement. This is beneficial as Luca (2016) concluded that the average rating of a restaurant guides customers to make informed decisions. Ultimately, this may lead to an improved reputation and subsequently increased customer demand.
 
