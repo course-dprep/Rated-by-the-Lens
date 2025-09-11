@@ -11,19 +11,24 @@ The influence of reviews is especially pronounced in the case of “experience g
 
 ## Data
 
-- What dataset(s) did you use? How was it obtained?
-- How many observations are there in the final dataset? 
-- Include a table of variable description/operstionalisation. 
+Firstly, to collect the required data, the datasets “dataset_business" and "dataset_photos" have been downloaded from Yelp Open Dataset, see https://business.yelp.com/data/resources/open-dataset/. Accordingly, we have built an R pipeline (tidyr and dyplr) that merged and cleaned the data.
+
+The steps executed after were:
+
+
+- Calculated the amount of photos that exist for “food & drink”, “environment” and “menu” for each business_id.
+- Transformed the data in order to separate columns for each category.
+- Handled missing businesses by assigning them to value 0 and kept only restaurants.
+- Inserted a new column “total_photos” per business.
+- Filtered for restaurants.
+- Performed a safety check.
+
+As follows, the “DataPreparationTeam9.Rmd” with 29.374 observations and 10 variables was obtained. The study will utilize and analyze the subsequent variables: 
+
 
 ## Method
 
-This project will be based on the Multiple Linear Regression (MLR) as this model is utilized if a continuous dependent variable (DV) occurs with multiple independent variables (IVs). As opposed to a simple linear regression, MLR can test the interaction between the independent variable and moderator, allowing for a better understanding of how different types of photos affect business’ average ratings. 
-
-Furthermore, coefficients are immediately interpretable as changes in star rating. With the use of log(1+Photos) we capture the diminishing returns while also reducing leverage from large amounts of photos, including the 2 outliers above 400 in our sample. We applied MLR to assess whether the relationships are positive or negative and statistically significant. The regression is as follows:
-
-Y = b0 +b1log(1 + Photos)+b2Menu + b3[log(1+Photos)xMenu] + e
-
-Here, “Menu” is the sole dummy variable where 1 occurs when menu/price photos are present and 0 if absent.
+....
 
 ## Preview of Findings 
 - Describe the gist of your findings (save the details for the final paper!)
