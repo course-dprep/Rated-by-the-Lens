@@ -28,7 +28,7 @@ The steps executed after were:
 
 - Calculated the amount of photos that exist for “food & drink”, “environment” and “menu” for each business_id.
 - Transformed the data in order to separate columns for each category.
-- Handled missing businesses by assigning them to value 0 and kept only restaurants.
+- Handled missing businesses by assigning them to value 0.
 - Inserted a new column “total_photos” per business.
 - Filtered for restaurants.
 - Performed a safety check.
@@ -59,11 +59,11 @@ Here, “Menu” is the sole dummy variable where 1 occurs when menu/price photo
 
 This project relies on several R packages for data manipulation, cleaning, and visualization. Please make sure the following libraries are installed before running the scripts:
 
-dplyr – used for data wrangling and manipulation
+- dplyr – used for data wrangling and manipulation
 
-tidyr – used for tidying and reshaping datasets
+- tidyr – used for tidying and reshaping datasets
 
-ggplot2 – used for creating visualizations and plots
+- ggplot2 – used for creating visualizations and plots
 
 To install these packages (if not already installed), run the following in R:
 
@@ -74,7 +74,9 @@ Once installed, the libraries can be loaded with:
 
 ```{r}
 library(dplyr)
+
 library(tidyr)
+
 library(ggplot2)
 ```
 ## Running Instructions 
