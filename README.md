@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 
 # The Impact of Photos on Restaurant Ratings: Evidence from Yelp
 This project aims to empirically investigate the relationship between the number of photos attached on Yelp and the restaurant’s average rating, as well as the extent to which the type of photo (food & drink, environment, menu) moderates this relationship. The purpose of this study is to provide practical insights for managers and restaurant owners on how photos in reviews may enhance ratings, certainty and increase potential visitors. To address this, a multiple linear regression model is applied with data obtained from Yelp open dataset.
@@ -62,16 +67,16 @@ ggplot2 – used for creating visualizations and plots
 
 To install these packages (if not already installed), run the following in R:
 
+```{r}
 install.packages(c("dplyr", "tidyr", "ggplot2"))
-
-
+```
 Once installed, the libraries can be loaded with:
 
+```{r}
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-
-
+```
 ## Running Instructions 
 
 *Provide step-by-step instructions that have to be followed to run this workflow.*
