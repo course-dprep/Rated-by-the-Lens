@@ -6,6 +6,7 @@ output:
 
 # The Impact of Photos on Restaurant Ratings: Evidence from Yelp
 This project aims to empirically investigate the relationship between the number of photos attached on Yelp and the restaurant’s average rating, as well as the extent to which the type of photo (food & drink, environment, menu) moderates this relationship. The purpose of this study is to provide practical insights for managers and restaurant owners on how photos in reviews may enhance ratings, certainty and increase potential visitors. To address this, a multiple linear regression model is applied with data obtained from Yelp open dataset.
+
 ## Motivation
 The influence of online reviews and electronic word of mouth (eWOM) on consumer perceptions and decision-making is evident in today’s digital society (Wang et al., 2021). As such, this phenomenon has been widely researched in marketing.
 
@@ -34,6 +35,18 @@ The steps executed after were:
 - Performed a safety check.
 
 As follows, the “DataPreparationTeam9.Rmd” with 29.374 observations and 10 variables was obtained. The study will utilize and analyze the subsequent variables: 
+| **Variable** 	| **Description**                                                     	| **Data Class** 	|
+|--------------	|---------------------------------------------------------------------	|----------------	|
+| business_id  	| The unique Yelp ID of the business                                  	| Character      	|
+| name         	| The business name as shown on Yelp                                  	| Character      	|
+| attributes   	| The map on Yelp of a restaurant’s amenities, services, and policies 	| List           	|
+| categories   	| The list of Yelp categories of cuisines for the business            	| Character      	|
+| stars        	| The average Yelp scale star rating (1–5)                            	| Numeric        	|
+| review_count 	| The total number of Yelp reviews                                    	| Numeric        	|
+| environment  	| The number of environment photos                                    	| Numeric        	|
+| food & drink 	| The number of food & drink photos                                   	| Numeric        	|
+| menu         	| The number of menu photos                                           	| Numeric        	|
+| total_photos 	| The total number of photos for the business                         	| Numeric        	|
 
 
 ## Method
