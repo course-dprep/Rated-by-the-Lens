@@ -35,6 +35,18 @@ The steps executed after were:
 - Performed a safety check.
 
 As follows, the “DataPreparationTeam9.Rmd” with 29.374 observations and 10 variables was obtained. The study will utilize and analyze the subsequent variables: 
+| **Variable** 	| **Description**                                                     	| **Data Class** 	|
+|--------------	|---------------------------------------------------------------------	|----------------	|
+| business_id  	| The unique Yelp ID of the business                                  	| Character      	|
+| name         	| The business name as shown on Yelp                                  	| Character      	|
+| attributes   	| The map on Yelp of a restaurant’s amenities, services, and policies 	| List           	|
+| categories   	| The list of Yelp categories of cuisines for the business            	| Character      	|
+| stars        	| The average Yelp scale star rating (1–5)                            	| Numeric        	|
+| review_count 	| The total number of Yelp reviews                                    	| Numeric        	|
+| environment  	| The number of environment photos                                    	| Numeric        	|
+| food & drink 	| The number of food & drink photos                                   	| Numeric        	|
+| menu         	| The number of menu photos                                           	| Numeric        	|
+| total_photos 	| The total number of photos for the business                         	| Numeric        	|
 
 
 ## Method
