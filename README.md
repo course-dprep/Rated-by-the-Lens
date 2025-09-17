@@ -20,7 +20,6 @@ From a managerial perspective, restaurant owners and managers may benefit from t
 
 Furthermore, managers can enhance their marketing strategy by strategically encouraging customers to publish reviews with photos on platforms such as Yelp or Tripadvisor as it reduces customer uncertainty. To encourage reviews that include photos, managers may add QR codes on the menu or receipts that could incentivize customers with rewards for the uploaded photos. Additional innovative approaches are table toppers and Wi-Fi login prompts inviting the customers to share a photo of the dish or environment. By prompting customers to share additional photos, managers may be more inclined to detect recurring issues, creating a feedback loop.
 
-
 ## Data
 
 Firstly, to collect the required data, the datasets “dataset_business" and "dataset_photos" have been downloaded from Yelp Open Dataset, see https://business.yelp.com/data/resources/open-dataset/. Accordingly, we have built an R pipeline (tidyr and dyplr) that merged and cleaned the data.
