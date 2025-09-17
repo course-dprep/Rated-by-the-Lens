@@ -56,14 +56,16 @@ photo_counts_added <- recategorized_filtered_merged_dataset %>%
 
 # Step 6: Filter to keep restaurants only
 # Final step of creating the data set, filtering of photo_counts_added dataset to keep only those businesses classified as restaurants
-final_dataset <- photo_counts_added %>% filter (grepl("Restaurants", categories, ignore.case = TRUE))
+dataset_draft <- photo_counts_added %>% filter (grepl("Restaurants", categories, ignore.case = TRUE))
 
 # Step 7 : Check for duplicates
-#Safety check; returns TRUE/FALSE for each row if the business_id is duplicated
-duplicated(final_dataset$business_id)
+#Safety check; removes exact duplicated rows there are among all rows and counts how many rows were removed
+library(dplyr)
+final_dataset <- dataset_draft %>% distinct()
+num_removed <- nrow(dataset_draft) - nrow(final_dataset)
+cat("Number of exact duplicate rows removed:", num_removed, "\n")
 
-
-# Data exploration and visualization:
+# Step 8 : Analyze suitable plots for data exploration and visualization:
 
 summary(final_dataset)
 library(ggplot2)
