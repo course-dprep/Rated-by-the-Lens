@@ -1,96 +1,92 @@
----
-title: "DataPreparation"
-output: html_document
----
-```{r}
-# Setting up the data set that will be used for the analysis
+# Title: "DataPreparation"
+# Output: html_document
 
 
-# Step 1: Load Yelp data sets directly from Google Drive
+# Step 1: Upload all necessary packages to library
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 
-# From the Yelp Open data set, only the "dataset_business" and "dataset_photos" data sets are downloaded.
+ 
+
+# Step 2: Setting up the data set that will be used for the analysis
+
+# Load Yelp data sets directly from Google Drive
+
+
 photos_url <- "https://drive.google.com/uc?export=download&id=117td66LNCSkpULb3ee4pprGYVpOzVQVv"
 business_url <- "https://drive.google.com/uc?export=download&id=13AZqPcwUro0jwsZIv6Q3WXeEn58YD5_x"
+
+# From the Yelp Open data set, only the "dataset_business" and "dataset_photos" data sets are downloaded.
+
 dataset_photos <- read.csv(photos_url)
 dataset_business <- read.csv(business_url)
 
-#Step 2: Merge dataset_photos and dataset_business using the "business_id"
+# Step 3: Merge dataset_photos and dataset_business using the "business_id"
 
 merged_dataset <- merge(dataset_business, dataset_photos, by = "business_id") #Here, merged_dataset has more obs than dataset_business because businesses have more than one photo. This will be fixed in later steps.
 
-#Step 3: Remove unnecessary variables
+# Step 4: Remove unnecessary variables
 
-#Columns retained: business_id, review_count, name, attributes, categories, stars, photo_id, caption, label
-#Removes extra columns that are not needed for analysis; 
-library(dplyr)
+# Columns retained: business_id, review_count, name, attributes, categories, stars, photo_id, caption, label
+# Removes extra columns that are not needed for analysis; 
+
 colnames(merged_dataset)
-filtered_merged_dataset <- merged_dataset %>%
-  select(business_id, review_count, name,label, attributes, categories, stars, photo_id, caption)
+filtered_merged_dataset <- merged_dataset %>% select(business_id, review_count, name,label, attributes, categories, stars, photo_id, caption)
 
-# Step 4: Grouping photo categories ('label') into three easy-to-understand categories
+# Step 5: Grouping photo categories ('label') into three easy-to-understand categories
 
 # New variable 'label_grouped' is created to store the new categories:
-  # 'food' and 'drink' -> 'food & drink'
-  # 'inside' and 'outside' -> 'environment'
-  # 'menu' -> 'menu'
-recategorized_filtered_merged_dataset <- filtered_merged_dataset %>%
-  mutate(label_grouped = case_when(
+# 'food' and 'drink' -> 'food & drink'
+# 'inside' and 'outside' -> 'environment'
+# 'menu' -> 'menu'
+
+recategorized_filtered_merged_dataset <- filtered_merged_dataset %>% mutate(label_grouped = case_when(
     label %in% c("food", "drink") ~ "food & drink",
     label %in% c("inside", "outside") ~ "environment",
     label == "menu" ~ "menu",
     TRUE ~ label   # fallback in case there are unexpected values
   ))
 
-# Step 5: Count photos per business_id,per category and total
+# Step 6: Count photos per business_id,per category and total
 
 #  For each business_id, we calculate how many photos exist for 'food & drink','environment' and 'menu' categories. 
 #  We then pivot the data so that each category becomes a separate column.
 #  Missing categories for a business are filled with 0.
 #  Finally, we add a 'total_photos' column showing the total number of photos per business.
-library(tidyr)
+
 photo_counts_added <- recategorized_filtered_merged_dataset %>%
   group_by(business_id, review_count, name, attributes, categories, stars) %>%
   count(label_grouped, name = "photo_count") %>%
   pivot_wider(names_from = label_grouped, values_from = photo_count, values_fill = 0) %>%
   mutate(total_photos = rowSums(across(c(`environment`, `food & drink`, menu))))
 
-# Step 6: Filter to keep restaurants only
+# Step 7: Filter to keep restaurants only
+
 # Final step of creating the data set, filtering of photo_counts_added dataset to keep only those businesses classified as restaurants
 dataset_draft <- photo_counts_added %>% filter (grepl("Restaurants", categories, ignore.case = TRUE))
 
-# Step 7 : Check for duplicates
-#Safety check; removes exact duplicated rows there are among all rows and counts how many rows were removed
-library(dplyr)
+# Step 8: Check for duplicates
+
+# Safety check; removes exact duplicated rows there are among all rows and counts how many rows were removed
 final_dataset <- dataset_draft %>% distinct()
 num_removed <- nrow(dataset_draft) - nrow(final_dataset)
 cat("Number of exact duplicate rows removed:", num_removed, "\n")
 
-# Step 8 : Analyze suitable plots for data exploration and visualization:
+# Step 9: Analyze suitable plots for data exploration and visualization:
 
 summary(final_dataset)
-library(ggplot2)
-```
-
-```{r}
 
 # Data visualization using ggplot
-library (ggplot2)
-
 # In order to properly understand the newly created data set, it is useful to crate some visualizations.
-
-
 # Plot A: Visual representation of the average rating and the total photos per restaurant
 
-ggplot(final_dataset, aes(x = total_photos, y = stars)) +
-  geom_point(alpha = 0.3, color = "blue") +
-  labs(title = "Stars vs Total Photos", x = "Total Photos", y = "Stars")
+ggplot(final_dataset, aes(x = total_photos, y = stars)) + geom_point(alpha = 0.3, color = "blue") +labs(title = "Stars vs Total Photos", x = "Total Photos", y = "Stars")
+
 # This scatter plot provides insight into both the IV and DV. More specifically, it shows how the number of stars  varies depending on the rating. We can even see an increasing pattern from 1 to 4 stars. Moreover, we can see the total photo count usually stays between 0 and 200, with two outilers above 400. 
-
-
 # Plot B: Bar plot showing total photos per category:
 
-ggplot(data = data.frame(
-  photo_type = c("Environment", "Food & Drink", "Menu"),
+ggplot(data = data.frame(photo_type = c("Environment", "Food & Drink", "Menu"),
   total = c(
     sum(final_dataset$environment),
     sum(final_dataset$`food & drink`),
@@ -105,5 +101,3 @@ ggplot(data = data.frame(
   )
 
 # The output aid us in visualizing the number of photos per category.
-```
-
