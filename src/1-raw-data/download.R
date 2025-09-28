@@ -5,8 +5,9 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
+photos_file <- "./data/photos.csv"
+business_file <- "./data/business.csv"
 
- 
 # DOWNLOAD DATA
 
 ## Step 2: Setting up the data set that will be used for the analysis
@@ -18,5 +19,5 @@ business_url <- "https://drive.google.com/uc?export=download&id=13AZqPcwUro0jwsZ
 
 # From the Yelp Open data set, only the "dataset_business" and "dataset_photos" data sets are downloaded.
 
-dataset_photos <- read.csv(photos_url)
-dataset_business <- read.csv(business_url)
+download.file(photos_url, photos_file)
+download.file(business_url, business_file)

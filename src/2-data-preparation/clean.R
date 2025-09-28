@@ -7,6 +7,9 @@ library(ggplot2)
 
 # CLEAN DATA
 
+dataset_business <- read.csv("./data/business.csv")
+dataset_photos <- read.csv("./data/photos.csv")
+
 ## Step 3: Merge dataset_photos and dataset_business using the "business_id"
 
 merged_dataset <- merge(dataset_business, dataset_photos, by = "business_id") #Here, merged_dataset has more obs than dataset_business because businesses have more than one photo. This will be fixed in later steps.
@@ -60,4 +63,4 @@ num_removed <- nrow(dataset_draft) - nrow(final_dataset)
 cat("Number of exact duplicate rows removed:", num_removed, "\n")
 
 ## Step 9: Save final data set
-write.csv(final_dataset, "final_dataset.csv", row.names = FALSE)
+write.csv(final_dataset, "./gen/temp/final_dataset.csv", row.names = FALSE)
