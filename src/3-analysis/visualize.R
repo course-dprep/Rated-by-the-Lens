@@ -7,6 +7,8 @@ library(ggplot2)
 
 # VISUALIZE DATA
 
+final_dataset <- read.csv("./gen/temp/final_dataset.csv")
+
 ## Step 10: Analyze suitable plots for data exploration and visualization:
 
 summary(final_dataset)
@@ -15,12 +17,12 @@ summary(final_dataset)
 # In order to properly understand the newly created data set, it is useful to crate some visualizations.
 # Plot A: Visual representation of the average rating and the total photos per restaurant
 
-ggplot(final_dataset, aes(x = total_photos, y = stars)) + geom_point(alpha = 0.3, color = "blue") +labs(title = "Stars vs Total Photos", x = "Total Photos", y = "Stars")
+stars_plot <- ggplot(final_dataset, aes(x = total_photos, y = stars)) + geom_point(alpha = 0.3, color = "blue") +labs(title = "Stars vs Total Photos", x = "Total Photos", y = "Stars")
 
 # This scatter plot provides insight into both the IV and DV. More specifically, it shows how the number of stars  varies depending on the rating. We can even see an increasing pattern from 1 to 4 stars. Moreover, we can see the total photo count usually stays between 0 and 200, with two outilers above 400. 
 # Plot B: Bar plot showing total photos per category:
 
-ggplot(data = data.frame(photo_type = c("Environment", "Food & Drink", "Menu"),
+photos_per_category_plot <- ggplot(data = data.frame(photo_type = c("Environment", "Food & Drink", "Menu"),
   total = c(
     sum(final_dataset$environment),
     sum(final_dataset$`food & drink`),
@@ -35,3 +37,7 @@ ggplot(data = data.frame(photo_type = c("Environment", "Food & Drink", "Menu"),
   )
 
 # The output aid us in visualizing the number of photos per category.
+pdf("./gen/output/report.pdf")
+print(stars_plot)
+print(photos_per_category_plot)
+dev.off()
