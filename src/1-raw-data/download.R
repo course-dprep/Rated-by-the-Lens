@@ -5,7 +5,7 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-#make a data folder to store the data sets in
+#make a data folder to store the data sets in for further use
 dir.create("./data")
 
 photos_file <- "./data/photos.csv"
@@ -24,3 +24,4 @@ business_url <- "https://drive.google.com/uc?export=download&id=13AZqPcwUro0jwsZ
 
 download.file(photos_url, photos_file)
 download.file(business_url, business_file)
+
