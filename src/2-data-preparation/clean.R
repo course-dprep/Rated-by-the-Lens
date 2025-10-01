@@ -30,7 +30,7 @@ filtered_merged_dataset <- merged_dataset %>% select(business_id, review_count, 
 # 'menu' -> 'menu'
 
 recategorized_filtered_merged_dataset <- filtered_merged_dataset %>% mutate(label_grouped = case_when(
-    label %in% c("food", "drink") ~ food_and_drink,
+    label %in% c("food", "drink") ~ "food_and_drink",
     label %in% c("inside", "outside") ~ "environment",
     label == "menu" ~ "menu",
     TRUE ~ label   # fallback in case there are unexpected values
@@ -63,4 +63,4 @@ num_removed <- nrow(dataset_draft) - nrow(final_dataset)
 cat("Number of exact duplicate rows removed:", num_removed, "\n")
 
 ## Step 9: Save final data set
-write.csv(final_dataset, "./gen/temp/final_dataset.csv", row.names = FALSE)
+write.csv(final_dataset, "./data/final_dataset.csv", row.names = FALSE)
