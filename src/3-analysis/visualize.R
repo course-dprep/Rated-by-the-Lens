@@ -7,7 +7,7 @@ library(ggplot2)
 
 # VISUALIZE DATA
 
-final_dataset <- read.csv("./gen/temp/final_dataset.csv")
+final_dataset <- read.csv("./data/final_dataset.csv")
 
 ## Step 10: Analyze suitable plots for data exploration and visualization:
 
@@ -25,7 +25,7 @@ stars_plot <- ggplot(final_dataset, aes(x = total_photos, y = stars)) + geom_poi
 photos_per_category_plot <- ggplot(data = data.frame(photo_type = c("Environment", "Food & Drink", "Menu"),
   total = c(
     sum(final_dataset$environment),
-    sum(final_dataset$`food & drink`),
+    sum(final_dataset$food_and_drink),
     sum(final_dataset$menu)
   )
 ), aes(x = photo_type, y = total, fill = photo_type)) +
@@ -37,7 +37,7 @@ photos_per_category_plot <- ggplot(data = data.frame(photo_type = c("Environment
   )
 
 # The output aid us in visualizing the number of photos per category.
-pdf("./gen/output/report.pdf")
+pdf("./reporting/report.pdf")
 print(stars_plot)
 print(photos_per_category_plot)
 dev.off()
