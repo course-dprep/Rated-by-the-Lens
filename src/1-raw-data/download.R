@@ -5,6 +5,9 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
+#make a data folder to store the data sets in
+dir.create("./data")
+
 photos_file <- "./data/photos.csv"
 business_file <- "./data/business.csv"
 
