@@ -30,7 +30,7 @@ filtered_merged_dataset <- merged_dataset %>% select(business_id, review_count, 
 # 'menu' -> 'menu'
 
 recategorized_filtered_merged_dataset <- filtered_merged_dataset %>% mutate(label_grouped = case_when(
-    label %in% c("food", "drink") ~ "food & drink",
+    label %in% c("food", "drink") ~ food_and_drink,
     label %in% c("inside", "outside") ~ "environment",
     label == "menu" ~ "menu",
     TRUE ~ label   # fallback in case there are unexpected values
@@ -48,7 +48,7 @@ photo_counts_added <- recategorized_filtered_merged_dataset %>%
   group_by(business_id, review_count, name, attributes, categories, stars) %>%
   count(label_grouped, name = "photo_count") %>%
   pivot_wider(names_from = label_grouped, values_from = photo_count, values_fill = 0) %>%
-  mutate(total_photos = rowSums(across(c(`environment`, `food & drink`, menu))))
+  mutate(total_photos = rowSums(across(c(environment, food_and_drink, menu))))
 
 ## Step 7: Filter to keep restaurants only
 
