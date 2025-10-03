@@ -25,7 +25,7 @@ filtered_merged_dataset <- merged_dataset %>% select(business_id, review_count, 
 ## Step 5: Grouping photo categories ('label') into three easy-to-understand categories
 
 # New variable 'label_grouped' is created to store the new categories:
-# 'food' and 'drink' -> 'food & drink'
+# 'food' and 'drink' -> 'food_and_drink'
 # 'inside' and 'outside' -> 'environment'
 # 'menu' -> 'menu'
 
@@ -38,7 +38,7 @@ recategorized_filtered_merged_dataset <- filtered_merged_dataset %>% mutate(labe
 
 ## Step 6: Count photos per business_id,per category and total
 
-#  For each business_id, we calculate how many photos exist for 'food & drink','environment' and 'menu' categories. 
+#  For each business_id, we calculate how many photos exist for 'food_and_drink','environment' and 'menu' categories. 
 #  We then pivot the data so that each category becomes a separate column.
 #  Missing categories for a business are replaced with 0.
 ## Justification for treatment of NAs: if a business has no photos in a category, the true count is 0 (not unknown).
