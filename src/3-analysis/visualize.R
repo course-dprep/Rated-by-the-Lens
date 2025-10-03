@@ -22,7 +22,7 @@ stars_plot <- ggplot(final_dataset, aes(x = total_photos, y = stars)) + geom_poi
 # This scatter plot provides insight into both the IV and DV. More specifically, it shows how the number of stars  varies depending on the rating. We can even see an increasing pattern from 1 to 4 stars. Moreover, we can see the total photo count usually stays between 0 and 200, with two outilers above 400. 
 # Plot B: Bar plot showing total photos per category:
 
-photos_per_category_plot <- ggplot(data = data.frame(photo_type = c("Environment", "Food & Drink", "Menu"),
+photos_per_category_plot <- ggplot(data = data.frame(photo_type = c("Environment", "Food_and_Drink", "Menu"),
   total = c(
     sum(final_dataset$environment),
     sum(final_dataset$food_and_drink),
