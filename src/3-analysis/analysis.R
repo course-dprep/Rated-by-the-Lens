@@ -112,5 +112,3 @@ summary(model_central)
 #When we look at the R-squared, we see that that the total explained variance by our model is very low (around 3.5%). 
 #This means that, although the number of photos and the dominant category have a measurable effect,
 #The vast majority of the variation in star ratings is caused by other factors that were not included in the model.
-
-

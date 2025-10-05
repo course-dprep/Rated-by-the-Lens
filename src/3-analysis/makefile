@@ -1,16 +1,17 @@
-# Stage 3 — analysis & visualization
-.SILENT:
-.DELETE_ON_ERROR:
+# Stage 3 — Analysis and visualization
+
+# Ensure compatibility with Windows systems
+MAKE := "$(MAKE)"
 
 TEMP := ../../gen/temp
 OUT  := ../../gen/output
 ROOT := $(abspath ../..)
 
 .PHONY: all
-all: $(OUT)/Rplots.pdf
+all: $(OUT)/analysis_done.txt
 
-$(OUT)/Rplots.pdf: visualize.R $(TEMP)/final_dataset.csv
+# Run the existing visualize.R script (no changes needed in the script itself)
+$(OUT)/analysis_done.txt: visualize.R $(TEMP)/final_dataset.csv
 	R -e "dir.create('$(OUT)', recursive = TRUE)"
 	Rscript -e "setwd('$(ROOT)'); source('src/3-analysis/visualize.R')"
-
-
+	@echo "Analysis completed successfully." > $(OUT)/analysis_done.txt

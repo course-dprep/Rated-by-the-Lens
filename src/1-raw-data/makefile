@@ -1,8 +1,9 @@
-# Stage 1 — download raw data (single run via a stamp)
-.SILENT:
-.DELETE_ON_ERROR:
+# Stage 1 — Download raw data 
 
-DATA := ../../data
+# Ensure compatibility with Windows systems
+MAKE := "$(MAKE)"
+
+DATA := ../../gen/data
 ROOT := $(abspath ../..)
 
 .PHONY: all
