@@ -24,16 +24,18 @@ plot(model_dv_iv, which = 1)
 #assumption not met! Non-linear relationship --> fix with log()
 
 #BASELINE ANALYSIS: Clarifying the Main Effects Before Testing Moderation
-#Before introducing the interaction between total photos and photo type (our main model), we first examine the simple main effects. This helps to clarify whether there is a general association between the number of photos and ratings, and how the different photo categories relate to ratings on their own.#main effect of amount of photo's on star rating
+#Before introducing the interaction between total photos and photo type (our main model), we first examine the simple main effects. 
+#This helps to clarify whether there is a general association between the number of photos and ratings, and how the different photo categories relate to ratings on their own.
+
+#Main effect of amount of photo's on star rating
 main_effect <- lm(stars ~ log(total_photos +1), data = final_dataset)
 summary(main_effect)
 
 #Interpretation: On average, restaurants without photos are expected to have a star rating of about 3.40.
-#A 1% increase in the total number of photos is associated with an expected 0.15 increase in star rating.
-#This positive and significant relationship (p < 0.05) confirms that photo quantity generally
-#correlates with higher ratings—addressing the first part of our research question.
+#A 1% increase in the total number of photos is associated with an expected 0.0015 increase in star rating.
+#This positive and significant relationship (p < 0.05) confirms that photo quantity generally correlates with higher ratings—addressing the first part of our research question.
 
-#Next, a regression is run with only on the categories to find main effects, excluding total_photos
+#Next, a regression is run using only the categorical variables to find the main effects, excluding total_photos
 model_categories <- lm(stars~log(food_and_drink+1) + log(menu+1) + log(environment+1),  data = final_dataset)
 summary(model_categories)
 
@@ -49,8 +51,8 @@ summary(model_categories)
 #What would be our regression model intuitively? 
 #DV = stars
 #IV = total photos (put in log to repair skewness)
-#moderator = type of photo
-#normally, you'll put a moderator after the IV with * like this:
+#Moderator = type of photo
+#Normally, you'll put a moderator after the IV with * like this:
 wrong_model <- lm(stars~log(total_photos+1) * food_and_drink * menu * environment, data= final_dataset )
 #However, because the 3 category variables add up to total_photos, this leads to perfect multicollinearity and the model will predict wrong.
 #Therefore, i create a variable which indicates per business_id which type of category is most occurring (either food_and_drink, menu, or environment)
@@ -67,24 +69,24 @@ final_dataset <- final_dataset%>%
     menu == max_photos ~ "Menu",
     environment == max_photos ~ "Environment",
     TRUE ~ "Equal_or_none" ))
-#the photo_category_dominant tells you what type of photo occurs most in the review of that restaurant
-#transform photo_category_dominant to a factor variable so our regression interpreters it correctly
+#The photo_category_dominant tells you what type of photo occurs most in the review of that restaurant
+#Transform photo_category_dominant to a factor variable so our regression interpreters it correctly
 final_dataset$photo_category_dominant <- factor(final_dataset$photo_category_dominant)
 
-#now, we have different treatment groups within this variable. We have to check the assumption if variance is equal among the groups
+#Now, we have different treatment groups within this variable. We have to check the assumption if variance is equal among the groups.
 final_dataset$model_residuals <- residuals(model_central) 
 levene_result <- leveneTest(model_residuals ~ photo_category_dominant, 
                             data = final_dataset, 
                             center = median) 
 
 print(levene_result)
-#the p-value is below .05 --> there is heteroscedasticity 
-#to fix this, we have to use robust standard errors in our model
+#The p-value is below .05 --> there is heteroscedasticity 
+#To fix this, we have to use robust standard errors in our model (using coeftest)
 
 model_moderation_1 <- lm(stars ~ log(total_photos +1) * photo_category_dominant, data = final_dataset)
 coeftest(model_moderation_1, vcov = vcovHC(model_moderation_1, type = "HC3"))
-#interpretation: is strange because a total_photos cannot be 0 while at the same time there is a prominent photo-group
-#better to centralize the model where we use the mean of total_photos as the intercept (=5.8 photos)
+#Interpretation: is strange because a total_photos cannot be 0 while at the same time there is a prominent photo-group
+#Better to centralize the model where we use the mean of total_photos as the intercept (mean = log(1.53) or 5.8 photos)
 
 mean_log_photos <- mean(log(final_dataset$total_photos + 1))
 
@@ -102,7 +104,7 @@ coeftest(model_central, vcov = vcovHC(model_central, type = "HC3"))
 #Restaurants where Food and Drink is the dominant category have a significantly lower expected star rating (0.23 stars lower) than Environment-dominant restaurants, holding the photo count constant at the average level.
 #Restaurants where Menu is dominant have no significant difference in the expected star rating compared to the Environment-dominant restaurants.
 
-#interactions
+#Interactions:
 #The effect of increasing photos is not significantly different for the Food and Drink group compared to the Environment group.
 #The effect of increasing photos is not significantly different for the Menu group compared to the Environment group
 
