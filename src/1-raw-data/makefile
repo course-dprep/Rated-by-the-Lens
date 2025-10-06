@@ -14,5 +14,5 @@ $(DATA)/photos.csv $(DATA)/business.csv: $(DATA)/.downloaded
 $(DATA)/.downloaded: download.R
 	R -e "dir.create('$(DATA)', recursive = TRUE)"
 	Rscript -e "setwd('$(ROOT)'); source('src/1-raw-data/download.R')"
-	@touch $@
+	Rscript -e "file.create('$(DATA)/.downloaded')"
 
