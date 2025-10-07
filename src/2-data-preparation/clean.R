@@ -62,5 +62,24 @@ final_dataset <- dataset_draft %>% distinct()
 num_removed <- nrow(dataset_draft) - nrow(final_dataset)
 cat("Number of exact duplicate rows removed:", num_removed, "\n")
 
+## Step 9: Create moderator variable
+# The three category variables sum to total_photos, causing perfect multicollinearity.
+# To avoid this, create one variable showing the dominant category (food_and_drink, menu, or environment) per business_id.
+
+#Determine the maximum value of every category
+final_dataset <- final_dataset %>%
+  mutate(max_photos = pmax(food_and_drink, menu, environment))
+
+#Choose the dominant category with the highest max per restaurant
+final_dataset <- final_dataset%>% 
+  mutate(photo_category_dominant = case_when(
+    food_and_drink == max_photos ~ "Food_and_Drink",
+    menu == max_photos ~ "Menu",
+    environment == max_photos ~ "Environment",
+    TRUE ~ "Equal_or_none" ))
+#The photo_category_dominant tells you what type of photo occurs most in the reviews of that restaurant
+#Transform photo_category_dominant to a factor variable so our regression interpreters it correctly
+final_dataset$photo_category_dominant <- factor(final_dataset$photo_category_dominant)
+
 ## Step 9: Save final data set
 write.csv(final_dataset, "./data/final_dataset.csv", row.names = FALSE)
