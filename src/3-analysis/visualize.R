@@ -14,12 +14,17 @@ final_dataset <- read.csv("./data/final_dataset.csv")
 summary(final_dataset)
 
 # Data visualization using ggplot
-# In order to properly understand the newly created data set, it is useful to crate some visualizations.
+# In order to properly understand the newly created data set, it is useful to create some visualizations.
 # Plot A: Visual representation of the average rating and the total photos per restaurant
 
-stars_plot <- ggplot(final_dataset, aes(x = total_photos, y = stars)) + geom_point(alpha = 0.3, color = "blue") +labs(title = "Stars vs Total Photos", x = "Total Photos", y = "Stars")
+stars_plot <- ggplot(final_dataset, 
+                     aes(x = total_photos, 
+                         y = stars)) + 
+  geom_point(alpha = 0.3, color = "blue") +
+  labs(title = "Stars vs Total Photos", x = "Total Photos", y = "Stars")
 
-# This scatter plot provides insight into both the IV and DV. More specifically, it shows how the number of stars  varies depending on the rating. We can even see an increasing pattern from 1 to 4 stars. Moreover, we can see the total photo count usually stays between 0 and 200, with two outilers above 400. 
+# This scatter plot provides insight into both the IV and DV. More specifically, it shows how the number of stars varies depending on the rating. 
+# We can even see an increasing pattern from 1 to 4 stars. Moreover, we can see the total photo count usually stays between 0 and 200, with two outliers above 400. 
 # Plot B: Bar plot showing total photos per category:
 
 photos_per_category_plot <- ggplot(data = data.frame(photo_type = c("Environment", "Food_and_Drink", "Menu"),
