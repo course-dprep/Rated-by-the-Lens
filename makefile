@@ -18,13 +18,13 @@ all: $(OUT)/report.pdf
 # Generate the final report
 $(OUT)/report.pdf: $(TEMP)/final_dataset.csv
 	$(MAKE) -C src/3-analysis all
-	cp $(OUT)/analysis_output.pdf $(OUT)/report.pdf
+	Rscript -e "file.copy('$(OUT)/analysis_output.pdf', '$(OUT)/report.pdf', overwrite=TRUE)"
 	@echo "All analysis and plots saved in $(OUT)"
 
 # Stage 3 — Analysis and Visualization
 $(OUT)/report.pdf: $(TEMP)/final_dataset.csv
 	$(MAKE) -C src/3-analysis all
-	cp $(OUT)/analysis_output.pdf $(OUT)/report.pdf
+	Rscript -e "file.copy('$(OUT)/analysis_output.pdf', '$(OUT)/report.pdf', overwrite=TRUE)"
 
 # Stage 2 — Data Preparation
 $(TEMP)/final_dataset.csv: $(DATA)/photos.csv $(DATA)/business.csv src/2-data-preparation/clean.R
