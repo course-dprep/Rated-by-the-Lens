@@ -7,8 +7,8 @@ library(ggplot2)
 
 # CLEAN DATA
 
-dataset_business <- read.csv("./data/business.csv")
-dataset_photos <- read.csv("./data/photos.csv")
+dataset_business <- read.csv("./gen/data/business.csv")
+dataset_photos <- read.csv("./gen/data/photos.csv")
 
 ## Step 3: Merge dataset_photos and dataset_business using the "business_id"
 
@@ -30,11 +30,11 @@ filtered_merged_dataset <- merged_dataset %>% select(business_id, review_count, 
 # 'menu' -> 'menu'
 
 recategorized_filtered_merged_dataset <- filtered_merged_dataset %>% mutate(label_grouped = case_when(
-    label %in% c("food", "drink") ~ "food_and_drink",
-    label %in% c("inside", "outside") ~ "environment",
-    label == "menu" ~ "menu",
-    TRUE ~ label   # fallback in case there are unexpected values
-  ))
+  label %in% c("food", "drink") ~ "food_and_drink",
+  label %in% c("inside", "outside") ~ "environment",
+  label == "menu" ~ "menu",
+  TRUE ~ label   # fallback in case there are unexpected values
+))
 
 ## Step 6: Count photos per business_id,per category and total
 
@@ -82,4 +82,4 @@ final_dataset <- final_dataset%>%
 final_dataset$photo_category_dominant <- factor(final_dataset$photo_category_dominant)
 
 ## Step 9: Save final data set
-write.csv(final_dataset, "./data/final_dataset.csv", row.names = FALSE)
+write.csv(final_dataset, "gen/temp/final_dataset.csv", row.names = FALSE)
