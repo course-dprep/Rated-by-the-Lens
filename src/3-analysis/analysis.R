@@ -7,7 +7,7 @@ library(sandwich)
 library(lmtest)
 
 #load the final data set
-final_dataset <- read.csv("./data/final_dataset.csv")
+final_dataset <- read.csv("gen/temp/final_dataset.csv")
 
 #ASSUMPTION: SKEWNESS
 
