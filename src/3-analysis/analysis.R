@@ -63,4 +63,33 @@ summary(model_central_moderation)
 #This means that, although the number of photos and the dominant category have a measurable effect,
 #The vast majority of the variation in star ratings is caused by other factors that were not included in the model.
 
+if(!dir.exists("./reporting")) {
+  dir.create("./reporting", recursive = TRUE)
+}
+# Path to the R Markdown file
+  
+rmd_file <- "reporting/analysis_report.Rmd"
 
+# R Markdown content
+rmd_content <- '
+---
+title: "analysis_report"
+output: pdf_document
+---
+
+```{r}
+summary(main_effect)
+
+summary(model_categories)
+
+summary(model_central_moderation)'
+
+writeLines(rmd_content, con=rmd_file)
+
+#Save the outputs in a pdf using Rmarkdown
+
+rmarkdown::render(
+  input = "reporting/analysis_report.Rmd",
+  output_file = "analysis_output.pdf",
+)
+                  
