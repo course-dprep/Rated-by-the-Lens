@@ -1,8 +1,9 @@
-# Stage 1 — download raw data (single run via a stamp)
-.SILENT:
-.DELETE_ON_ERROR:
+# Stage 1 — Download raw data 
 
-DATA := ../../data
+# Ensure compatibility with Windows systems
+MAKE := "$(MAKE)"
+
+DATA := ../../gen/data
 ROOT := $(abspath ../..)
 
 .PHONY: all
@@ -14,5 +15,4 @@ $(DATA)/photos.csv $(DATA)/business.csv: $(DATA)/.downloaded
 $(DATA)/.downloaded: download.R
 	R -e "dir.create('$(DATA)', recursive = TRUE)"
 	Rscript -e "setwd('$(ROOT)'); source('src/1-raw-data/download.R')"
-	@touch $@
-
+	Rscript -e "file.create('$(DATA)/.downloaded')"

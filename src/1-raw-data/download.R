@@ -5,11 +5,13 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-#make a data folder to store the data sets in for further use
-dir.create("./data")
 
-photos_file <- "./data/photos.csv"
-business_file <- "./data/business.csv"
+# Make sure the gen/data folder exists
+dir.create("./gen/data", recursive = TRUE)
+
+# Define where files will be saved
+photos_file <- "./gen/data/photos.csv"
+business_file <- "./gen/data/business.csv"
 
 # DOWNLOAD DATA
 
@@ -24,4 +26,3 @@ business_url <- "https://drive.google.com/uc?export=download&id=13AZqPcwUro0jwsZ
 
 download.file(photos_url, photos_file)
 download.file(business_url, business_file)
-

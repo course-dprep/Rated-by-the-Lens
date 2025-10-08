@@ -4,7 +4,7 @@ library(tidyr)
 library(ggplot2)
 
 #load the final data set
-final_dataset <- read.csv("./data/final_dataset.csv")
+final_dataset <- read.csv("gen/temp/final_dataset.csv")
 
 #BASELINE ANALYSIS: Clarifying the Main Effects Before Testing Moderation
 #Before introducing the interaction between total photos and photo type (our main model), we first examine the simple main effects. 
@@ -63,11 +63,6 @@ summary(model_central_moderation)
 #This means that, although the number of photos and the dominant category have a measurable effect,
 #The vast majority of the variation in star ratings is caused by other factors that were not included in the model.
 
-if(!dir.exists("./reporting")) {
-  dir.create("./reporting", recursive = TRUE)
-}
-# Path to the R Markdown file
-  
 rmd_file <- "reporting/analysis_report.Rmd"
 
 # R Markdown content
