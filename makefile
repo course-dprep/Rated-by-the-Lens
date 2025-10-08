@@ -36,5 +36,5 @@ $(DATA)/photos.csv $(DATA)/business.csv: src/1-raw-data/download.R
 clean:
 	R -e "unlink('$(DATA)', recursive = TRUE)"
 	R -e "unlink('gen', recursive = TRUE)"
-	@echo "🧹 Cleaned data/ and gen/ directories."
+	@echo "Cleaned data/ and gen/ directories."
 
