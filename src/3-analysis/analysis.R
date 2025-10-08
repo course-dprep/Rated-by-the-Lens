@@ -79,12 +79,23 @@ summary(model_categories)
 
 summary(model_central_moderation)'
 
-writeLines(rmd_content, con=rmd_file)
+# Save R Markdown and render directly in gen/output
 
-#Save the outputs in a pdf using Rmarkdown
+# Ensure output directory exists (relative to project root)
+output_dir <- "../../gen/output"
+dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
+# Define paths
+rmd_file <- file.path(output_dir, "analysis_report.Rmd")
+output_pdf <- file.path(output_dir, "analysis_output.pdf")
+
+# Write the R Markdown content to the file
+writeLines(rmd_content, con = rmd_file)
+
+# Render directly to PDF
 rmarkdown::render(
-  input = "reporting/analysis_report.Rmd",
-  output_file = "analysis_output.pdf",
+  input = rmd_file,
+  output_file = output_pdf
 )
-                  
+
+cat("Analysis report successfully created in", output_pdf, "\n")
