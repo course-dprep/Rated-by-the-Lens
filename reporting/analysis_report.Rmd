@@ -1,3 +1,4 @@
+
 ---
 title: "analysis_report"
 output: pdf_document
@@ -6,12 +7,6 @@ output: pdf_document
 ```{r}
 summary(main_effect)
 
-```
-```{r}
 summary(model_categories)
-```
 
-```{r}
 summary(model_central_moderation)
-```
-

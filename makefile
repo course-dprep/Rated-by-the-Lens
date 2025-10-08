@@ -1,9 +1,11 @@
+# Main Makefile — Full Pipeline
+
 MAKE := "$(MAKE)"
 
 .PHONY: all clean
 
 # Directory paths
-DATA := data
+DATA := gen/data
 TEMP := gen/temp
 OUT  := gen/output
 
@@ -14,25 +16,26 @@ OUT  := gen/output
 all: $(OUT)/report.pdf
 
 # Generate the final report
-$(OUT)/report.pdf: $(TEMP)/final_dataset.csv src/3-analysis/visualize.R
+$(OUT)/report.pdf: $(TEMP)/final_dataset.csv
 	$(MAKE) -C src/3-analysis all
-	
-# Generate the analysis output (new step)
-$(OUT)/analysis_done.txt: $(TEMP)/final_dataset.csv src/analysis/analysis.R
-	R -e "dir.create('$(OUT)', recursive = TRUE)"
-	Rscript src/analysis/analysis.R
-	@echo "Analysis completed successfully." > $(OUT)/analysis_done.txt
+	Rscript -e "file.copy('$(OUT)/analysis_output.pdf', '$(OUT)/report.pdf', overwrite=TRUE)"
+	@echo "All analysis and plots saved in $(OUT)"
 
-# Generate the cleaned dataset
+# Stage 3 — Analysis and Visualization
+$(OUT)/report.pdf: $(TEMP)/final_dataset.csv
+	$(MAKE) -C src/3-analysis all
+	Rscript -e "file.copy('$(OUT)/analysis_output.pdf', '$(OUT)/report.pdf', overwrite=TRUE)"
+
+# Stage 2 — Data Preparation
 $(TEMP)/final_dataset.csv: $(DATA)/photos.csv $(DATA)/business.csv src/2-data-preparation/clean.R
 	$(MAKE) -C src/2-data-preparation all
 
-# Download raw data
+# Stage 1 — Download raw data
 $(DATA)/photos.csv $(DATA)/business.csv: src/1-raw-data/download.R
 	$(MAKE) -C src/1-raw-data all
 
-# Clean temporary and output files
+# Clean everything
 clean:
 	R -e "unlink('$(DATA)', recursive = TRUE)"
 	R -e "unlink('gen', recursive = TRUE)"
-	@echo "cleaned: $(DATA)/ and gen/"
+	@echo "Cleaned data/ and gen/ directories."

@@ -1,17 +1,35 @@
-# Stage 3 — Analysis and visualization
+# Stage 3 — Analysis and Visualization
 
-# Ensure compatibility with Windows systems
-MAKE := "$(MAKE)"
+# Paths
+DATA_DIR    = ../../gen/temp
+OUTPUT_DIR  = ../../gen/output
+SCRIPT_DIR  = .
+ROOT        = $(abspath ../..)
 
-TEMP := ../../gen/temp
-OUT  := ../../gen/output
-ROOT := $(abspath ../..)
+VISUALIZE_SCRIPT = $(SCRIPT_DIR)/visualize.R
+ANALYSIS_SCRIPT  = $(SCRIPT_DIR)/analysis.R
+INPUT_DATA       = $(DATA_DIR)/final_dataset.csv
+OUTPUT_PDF       = $(OUTPUT_DIR)/analysis_output.pdf
+RMD_FILE         = $(OUTPUT_DIR)/analysis_report.Rmd
+REPORT_PDF       = $(OUTPUT_DIR)/analysis_output.pdf
 
-.PHONY: all
-all: $(OUT)/analysis_done.txt
+.PHONY: all clean visualize analysis
 
-# Run the existing visualize.R script (no changes needed in the script itself)
-$(OUT)/analysis_done.txt: visualize.R $(TEMP)/final_dataset.csv
-	R -e "dir.create('$(OUT)', recursive = TRUE)"
-	Rscript -e "setwd('$(ROOT)'); source('src/3-analysis/visualize.R')"
-	@echo "Analysis completed successfully." > $(OUT)/analysis_done.txt
+# Default target: run both visualization and analysis
+all: visualize analysis
+
+# Visualization step
+visualize: $(VISUALIZE_SCRIPT)
+	R -e "dir.create('$(OUTPUT_DIR)', recursive = TRUE)"
+	Rscript visualize.R
+
+# Analysis step
+analysis: $(ANALYSIS_SCRIPT)
+	R -e "dir.create('$(OUTPUT_DIR)', recursive = TRUE)"
+	Rscript analysis.R
+
+# Clean outputs
+clean:
+	rm -f $(OUTPUT_DIR)/analysis_output.pdf
+	rm -f $(OUTPUT_DIR)/analysis_report.Rmd
+	@echo "Cleaned analysis output files."
