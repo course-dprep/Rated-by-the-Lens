@@ -5,7 +5,7 @@ MAKE := "$(MAKE)"
 .PHONY: all clean
 
 # Directory paths
-DATA := data
+DATA := gen/data
 TEMP := gen/temp
 OUT  := gen/output
 
@@ -15,14 +15,16 @@ OUT  := gen/output
 # Main build rule
 all: $(OUT)/report.pdf
 
-# Final report depends on the completed analysis
-$(OUT)/report.pdf: $(OUT)/analysis_output.pdf
+# Generate the final report
+$(OUT)/report.pdf: $(TEMP)/final_dataset.csv
+	$(MAKE) -C src/3-analysis all
 	cp $(OUT)/analysis_output.pdf $(OUT)/report.pdf
-	@echo "Final report ready: $(OUT)/report.pdf"
+	@echo "All analysis and plots saved in $(OUT)"
 
 # Stage 3 — Analysis and Visualization
-$(OUT)/analysis_output.pdf: $(TEMP)/final_dataset.csv src/3-analysis/analysis.R
+$(OUT)/report.pdf: $(TEMP)/final_dataset.csv
 	$(MAKE) -C src/3-analysis all
+	cp $(OUT)/analysis_output.pdf $(OUT)/report.pdf
 
 # Stage 2 — Data Preparation
 $(TEMP)/final_dataset.csv: $(DATA)/photos.csv $(DATA)/business.csv src/2-data-preparation/clean.R
@@ -37,4 +39,3 @@ clean:
 	R -e "unlink('$(DATA)', recursive = TRUE)"
 	R -e "unlink('gen', recursive = TRUE)"
 	@echo "Cleaned data/ and gen/ directories."
-

@@ -1,48 +1,52 @@
 # LOAD PACKAGES
-
-## Step 1: Upload all necessary packages to library
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-# VISUALIZE DATA
+# LOAD DATA
+final_dataset <- read.csv("../../gen/temp/final_dataset.csv")
 
-final_dataset <- read.csv(file.path("gen", "temp", "final_dataset.csv"))
+# ENSURE OUTPUT DIRECTORY EXISTS
+dir.create("../../gen/output", recursive = TRUE, showWarnings = FALSE)
 
-## Step 10: Analyze suitable plots for data exploration and visualization:
+# OPEN PDF DEVICE
+pdf("../../gen/output/visualizations.pdf")
 
-summary(final_dataset)
+# PLOT A — Stars vs Total Photos
+print(
+  ggplot(final_dataset, aes(x = total_photos, y = stars)) +
+    geom_point(alpha = 0.4, color = "blue") +
+    labs(
+      title = "Stars vs Total Photos",
+      x = "Total Photos",
+      y = "Stars"
+    ) +
+    theme_minimal(base_size = 14)
+)
 
-# Data visualization using ggplot
-# In order to properly understand the newly created data set, it is useful to create some visualizations.
-# Plot A: Visual representation of the average rating and the total photos per restaurant
-
-stars_plot <- ggplot(final_dataset, 
-                     aes(x = total_photos, 
-                         y = stars)) + 
-  geom_point(alpha = 0.3, color = "blue") +
-  labs(title = "Stars vs Total Photos", x = "Total Photos", y = "Stars")
-
-# This scatter plot provides insight into both the IV and DV. More specifically, it shows how the number of stars varies depending on the rating. 
-# We can even see an increasing pattern from 1 to 4 stars. Moreover, we can see the total photo count usually stays between 0 and 200, with two outliers above 400. 
-# Plot B: Bar plot showing total photos per category:
-
-photos_per_category_plot <- ggplot(data = data.frame(photo_type = c("Environment", "Food_and_Drink", "Menu"),
-                                                     total = c(
-                                                       sum(final_dataset$environment),
-                                                       sum(final_dataset$food_and_drink),
-                                                       sum(final_dataset$menu)
-                                                     )
-), aes(x = photo_type, y = total, fill = photo_type)) +
-  geom_col() +
-  labs(
-    title = "Total Photos per Category",
-    x = "Photo Type",
-    y = "Total Photos"
+# PLOT B — Total Photos per Category
+plot_data <- data.frame(
+  photo_type = c("Environment", "Food_and_Drink", "Menu"),
+  total = c(
+    sum(final_dataset$environment, na.rm = TRUE),
+    sum(final_dataset$food_and_drink, na.rm = TRUE),
+    sum(final_dataset$menu, na.rm = TRUE)
   )
+)
 
-# The output aid us in visualizing the number of photos per category.
-pdf("gen/output/report.pdf")
-print(stars_plot)
-print(photos_per_category_plot)
+print(
+  ggplot(plot_data, aes(x = photo_type, y = total, fill = photo_type)) +
+    geom_col() +
+    labs(
+      title = "Total Photos per Category",
+      x = "Photo Type",
+      y = "Total Photos"
+    ) +
+    theme_minimal(base_size = 14)
+)
+
+# FORCE FLUSH + CLOSE DEVICE
+dev.flush()
 dev.off()
+
+cat("PDF with plots successfully saved to ../../gen/output/report.pdf\n")

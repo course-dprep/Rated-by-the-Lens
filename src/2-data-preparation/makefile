@@ -1,11 +1,8 @@
 # Stage 2 — Clean and aggregate data
-
-# Ensure compatibility with Windows systems
 MAKE := "$(MAKE)"
 
 DATA := ../../gen/data
 TEMP := ../../gen/temp
-ROOT := $(abspath ../..)
 
 .PHONY: all
 all: $(TEMP)/final_dataset.csv
@@ -17,4 +14,5 @@ $(DATA)/photos.csv $(DATA)/business.csv:
 # Create the cleaned and aggregated dataset
 $(TEMP)/final_dataset.csv: clean.R $(DATA)/photos.csv $(DATA)/business.csv
 	R -e "dir.create('$(TEMP)', recursive = TRUE)"
-	Rscript -e "setwd('$(ROOT)'); source('src/2-data-preparation/clean.R')"
+	Rscript clean.R
+	@echo "Data preparation complete. Output saved to $(TEMP)/final_dataset.csv"

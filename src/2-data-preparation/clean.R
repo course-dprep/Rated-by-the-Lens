@@ -7,12 +7,14 @@ library(ggplot2)
 
 # CLEAN DATA
 
-dataset_business <- read.csv("./gen/data/business.csv")
-dataset_photos <- read.csv("./gen/data/photos.csv")
+dataset_business <- read.csv("../../gen/data/business.csv")
+dataset_photos <- read.csv("../../gen/data/photos.csv")
 
 ## Step 3: Merge dataset_photos and dataset_business using the "business_id"
 
-merged_dataset <- merge(dataset_business, dataset_photos, by = "business_id") #Here, merged_dataset has more obs than dataset_business because businesses have more than one photo. This will be fixed in later steps.
+names(dataset_photos)[names(dataset_photos) == "id"] <- "business_id"
+
+merged_dataset <- merge(dataset_business, dataset_photos, by = "business_id") # Here, merged_dataset has more obs than dataset_business because businesses have more than one photo. This will be fixed in later steps.
 
 ## Step 4: Remove unnecessary variables
 
@@ -82,4 +84,4 @@ final_dataset <- final_dataset%>%
 final_dataset$photo_category_dominant <- factor(final_dataset$photo_category_dominant)
 
 ## Step 9: Save final data set
-write.csv(final_dataset, "gen/temp/final_dataset.csv", row.names = FALSE)
+write.csv(final_dataset, "../../gen/temp/final_dataset.csv", row.names = FALSE)

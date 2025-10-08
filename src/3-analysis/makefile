@@ -6,34 +6,30 @@ OUTPUT_DIR  = ../../gen/output
 SCRIPT_DIR  = .
 ROOT        = $(abspath ../..)
 
-ANALYSIS_SCRIPT = $(SCRIPT_DIR)/analysis.R
-INPUT_DATA      = $(DATA_DIR)/final_dataset.csv
-OUTPUT_PDF      = $(OUTPUT_DIR)/analysis_output.pdf
-RMD_FILE        = $(ROOT)/reporting/analysis_report.Rmd
-REPORT_PDF      = $(ROOT)/reporting/analysis_output.pdf
+VISUALIZE_SCRIPT = $(SCRIPT_DIR)/visualize.R
+ANALYSIS_SCRIPT  = $(SCRIPT_DIR)/analysis.R
+INPUT_DATA       = $(DATA_DIR)/final_dataset.csv
+OUTPUT_PDF       = $(OUTPUT_DIR)/analysis_output.pdf
+RMD_FILE         = $(OUTPUT_DIR)/analysis_report.Rmd
+REPORT_PDF       = $(OUTPUT_DIR)/analysis_output.pdf
 
-# Default target
-all: $(OUTPUT_PDF)
+.PHONY: all clean visualize analysis
 
-# Run analysis to generate Rmd and PDF
-$(OUTPUT_PDF): $(ANALYSIS_SCRIPT) $(INPUT_DATA) | $(OUTPUT_DIR)
+# Default target: run both visualization and analysis
+all: visualize analysis
+
+# Visualization step
+visualize: $(VISUALIZE_SCRIPT)
 	R -e "dir.create('$(OUTPUT_DIR)', recursive = TRUE)"
-	Rscript -e "setwd('$(ROOT)'); source('src/3-analysis/analysis.R')"
-	if [ -f "$(REPORT_PDF)" ]; then \
-		cp "$(REPORT_PDF)" "$(OUTPUT_PDF)"; \
-		echo "Analysis completed successfully. PDF copied to $(OUTPUT_PDF)"; \
-	else \
-		echo "Error: $(REPORT_PDF) not found!"; \
-		exit 1; \
-	fi
+	Rscript visualize.R
 
-# Ensure output directory exists
-$(OUTPUT_DIR):
-	mkdir -p $(OUTPUT_DIR)
+# Analysis step
+analysis: $(ANALYSIS_SCRIPT)
+	R -e "dir.create('$(OUTPUT_DIR)', recursive = TRUE)"
+	Rscript analysis.R
 
-# Clean analysis outputs
+# Clean outputs
 clean:
 	rm -f $(OUTPUT_DIR)/analysis_output.pdf
-	rm -f $(RMD_FILE)
+	rm -f $(OUTPUT_DIR)/analysis_report.Rmd
 	@echo "Cleaned analysis output files."
-
