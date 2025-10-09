@@ -1,4 +1,4 @@
-# Main Makefile — Full Pipeline
+# Main Makefile — Full Pipeline (PNG output)
 
 MAKE := "$(MAKE)"
 
@@ -13,18 +13,13 @@ OUT  := gen/output
 .DEFAULT_GOAL := all
 
 # Main build rule
-all: $(OUT)/report.pdf
+all: $(OUT)/report.png
 
-# Generate the final report
-$(OUT)/report.pdf: $(TEMP)/final_dataset.csv
+# Generate the final report (built by Stage 3 and copied as report.png)
+$(OUT)/report.png: $(TEMP)/final_dataset.csv
 	$(MAKE) -C src/3-analysis all
-	Rscript -e "file.copy('$(OUT)/analysis_output.pdf', '$(OUT)/report.pdf', overwrite=TRUE)"
+	Rscript -e "file.copy('$(OUT)/analysis_output.png', '$(OUT)/report.png', overwrite=TRUE)"
 	@echo "All analysis and plots saved in $(OUT)"
-
-# Stage 3 — Analysis and Visualization
-$(OUT)/report.pdf: $(TEMP)/final_dataset.csv
-	$(MAKE) -C src/3-analysis all
-	Rscript -e "file.copy('$(OUT)/analysis_output.pdf', '$(OUT)/report.pdf', overwrite=TRUE)"
 
 # Stage 2 — Data Preparation
 $(TEMP)/final_dataset.csv: $(DATA)/photos.csv $(DATA)/business.csv src/2-data-preparation/clean.R
