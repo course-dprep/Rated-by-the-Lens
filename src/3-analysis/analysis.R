@@ -23,8 +23,20 @@ final_dataset <- final_dataset %>%
 model_central_moderation <- lm(stars ~ photos_centered * photo_category_dominant, data = final_dataset)
 summary(model_central_moderation)
 
-#Retain the function and output_dir from visualize.R
-source("visualize.R")
+# Helper function to save plots as PNG
+save_summary_png <- function(model, file_path) {
+  txt <- capture.output(summary(model))  # capture summary as text
+  txt <- paste(txt, collapse = "\n")     # combine into a single string
+  
+  # Create PNG
+  png(file_path, width = 800, height = 600)
+  grid.newpage()
+  grid.text(txt, x = 0.05, y = 0.95, just = c("left", "top"), gp = gpar(fontsize = 12, fontfamily = "mono"))
+  dev.off()
+}
+
+output_dir <- "../../gen/output"
+dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
 # Save each model summary as PNG
 save_summary_png(main_effect, file.path(output_dir, "main_effect.png"))

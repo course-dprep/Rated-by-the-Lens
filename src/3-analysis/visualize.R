@@ -39,22 +39,11 @@ photo_category_plot<-ggplot(plot_data, aes(x = photo_type, y = total, fill = pho
     ) +
     theme_minimal(base_size = 14)
 
-# Helper function to save plots as PNG
-save_summary_png <- function(model, file_path) {
-  txt <- capture.output(summary(model))  # capture summary as text
-  txt <- paste(txt, collapse = "\n")     # combine into a single string
-  
-  # Create PNG
-  png(file_path, width = 800, height = 600)
-  grid.newpage()
-  grid.text(txt, x = 0.05, y = 0.95, just = c("left", "top"), gp = gpar(fontsize = 12, fontfamily = "mono"))
-  dev.off()
-}
-
+# SAVE PLOTS AS PNG
 output_dir <- "../../gen/output"
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
-save_summary_png(stars_total_photos, file.path(output_dir, "stars_total_photos.png"))
-save_summary_png(photo_category_plot, file.path(output_dir, "photo_category_plot.png"))
+ggsave(filename = file.path(output_dir, "stars_total_photos.png"), plot = stars_total_photos, width = 8, height = 6)
+ggsave(filename = file.path(output_dir, "photo_category_plot.png"), plot = photo_category_plot, width = 8, height = 6)
 
 cat("PNG's with plots successfully saved to ../../gen/output/report.pdf\n")
