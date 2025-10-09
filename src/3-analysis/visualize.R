@@ -1,18 +1,22 @@
-# LOAD PACKAGES
-library(dplyr)
-library(tidyr)
-library(ggplot2)
+# ===========================
+# Visualization -> PNG files
+# ===========================
 
-# LOAD DATA
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(ggplot2)
+})
+
+# ---- Load data ----
 final_dataset <- read.csv("../../gen/temp/final_dataset.csv")
 
-# ENSURE OUTPUT DIRECTORY EXISTS
-dir.create("../../gen/output", recursive = TRUE, showWarnings = FALSE)
+# ---- Ensure output directory exists ----
+out_dir <- "../../gen/output"
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-# OPEN PDF DEVICE
-pdf("../../gen/output/visualizations.pdf")
-
-# PLOT A — Stars vs Total Photos
+# ---- Plot A — Stars vs Total Photos ----
+png(file.path(out_dir, "stars_vs_photos.png"), width = 1200, height = 900, res = 144)
 print(
   ggplot(final_dataset, aes(x = total_photos, y = stars)) +
     geom_point(alpha = 0.4, color = "blue") +
@@ -23,17 +27,19 @@ print(
     ) +
     theme_minimal(base_size = 14)
 )
+dev.off()
 
-# PLOT B — Total Photos per Category
-plot_data <- data.frame(
+# ---- Plot B — Total Photos per Category ----
+plot_data <- tibble::tibble(
   photo_type = c("Environment", "Food_and_Drink", "Menu"),
   total = c(
-    sum(final_dataset$environment, na.rm = TRUE),
-    sum(final_dataset$food_and_drink, na.rm = TRUE),
-    sum(final_dataset$menu, na.rm = TRUE)
+    sum(final_dataset$environment,     na.rm = TRUE),
+    sum(final_dataset$food_and_drink,  na.rm = TRUE),
+    sum(final_dataset$menu,            na.rm = TRUE)
   )
 )
 
+png(file.path(out_dir, "photos_per_category.png"), width = 1200, height = 900, res = 144)
 print(
   ggplot(plot_data, aes(x = photo_type, y = total, fill = photo_type)) +
     geom_col() +
@@ -42,11 +48,9 @@ print(
       x = "Photo Type",
       y = "Total Photos"
     ) +
-    theme_minimal(base_size = 14)
+    theme_minimal(base_size = 14) +
+    theme(legend.position = "none")
 )
-
-# FORCE FLUSH + CLOSE DEVICE
-dev.flush()
 dev.off()
 
-cat("PDF with plots successfully saved to ../../gen/output/report.pdf\n")
+cat("PNG plots saved to", out_dir, "\n")
