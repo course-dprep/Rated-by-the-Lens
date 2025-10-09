@@ -2,6 +2,7 @@
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(grid)
 
 # LOAD DATA
 final_dataset <- read.csv("../../gen/temp/final_dataset.csv")
@@ -9,12 +10,8 @@ final_dataset <- read.csv("../../gen/temp/final_dataset.csv")
 # ENSURE OUTPUT DIRECTORY EXISTS
 dir.create("../../gen/output", recursive = TRUE, showWarnings = FALSE)
 
-# OPEN PDF DEVICE
-pdf("../../gen/output/visualizations.pdf")
-
 # PLOT A — Stars vs Total Photos
-print(
-  ggplot(final_dataset, aes(x = total_photos, y = stars)) +
+stars_total_photos <- ggplot(final_dataset, aes(x = total_photos, y = stars)) +
     geom_point(alpha = 0.4, color = "blue") +
     labs(
       title = "Stars vs Total Photos",
@@ -22,7 +19,6 @@ print(
       y = "Stars"
     ) +
     theme_minimal(base_size = 14)
-)
 
 # PLOT B — Total Photos per Category
 plot_data <- data.frame(
@@ -34,8 +30,7 @@ plot_data <- data.frame(
   )
 )
 
-print(
-  ggplot(plot_data, aes(x = photo_type, y = total, fill = photo_type)) +
+photo_category_plot<-ggplot(plot_data, aes(x = photo_type, y = total, fill = photo_type)) +
     geom_col() +
     labs(
       title = "Total Photos per Category",
@@ -43,10 +38,12 @@ print(
       y = "Total Photos"
     ) +
     theme_minimal(base_size = 14)
-)
 
-# FORCE FLUSH + CLOSE DEVICE
-dev.flush()
-dev.off()
+# SAVE PLOTS AS PNG
+output_dir <- "../../gen/output"
+dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
-cat("PDF with plots successfully saved to ../../gen/output/report.pdf\n")
+ggsave(filename = file.path(output_dir, "stars_total_photos.png"), plot = stars_total_photos, width = 8, height = 6)
+ggsave(filename = file.path(output_dir, "photo_category_plot.png"), plot = photo_category_plot, width = 8, height = 6)
+
+cat("PNG's with plots successfully saved to ../../gen/output/report.pdf\n")

@@ -3,6 +3,7 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(rmarkdown)
+library(grid)
 
 # Load the final dataset (path relative to src/3-analysis)
 final_dataset <- read.csv("../../gen/temp/final_dataset.csv")
@@ -22,32 +23,24 @@ final_dataset <- final_dataset %>%
 model_central_moderation <- lm(stars ~ photos_centered * photo_category_dominant, data = final_dataset)
 summary(model_central_moderation)
 
-# Prepare R Markdown file and output locations
+# Helper function to save plots as PNG
+save_summary_png <- function(model, file_path) {
+  txt <- capture.output(summary(model))  # capture summary as text
+  txt <- paste(txt, collapse = "\n")     # combine into a single string
+  
+  # Create PNG
+  png(file_path, width = 800, height = 600)
+  grid.newpage()
+  grid.text(txt, x = 0.05, y = 0.95, just = c("left", "top"), gp = gpar(fontsize = 12, fontfamily = "mono"))
+  dev.off()
+}
+
 output_dir <- "../../gen/output"
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
-rmd_file <- file.path(output_dir, "analysis_report.Rmd")
-output_pdf <- file.path(output_dir, "analysis_output.pdf")
+# Save each model summary as PNG
+save_summary_png(main_effect, file.path(output_dir, "main_effect.png"))
+save_summary_png(model_categories, file.path(output_dir, "model_categories.png"))
+save_summary_png(model_central_moderation, file.path(output_dir, "model_central_moderation.png"))
 
-# Write R Markdown content
-rmd_content <- '
----
-title: "Analysis Report"
-output: pdf_document
----
-
-```{r}
-summary(main_effect)
-summary(model_categories)
-summary(model_central_moderation)
-```'
-
-writeLines(rmd_content, con = rmd_file)
-
-# Render directly to PDF in gen/output
-rmarkdown::render(
-  input = rmd_file,
-  output_file = output_pdf
-)
-
-cat("Analysis report successfully created in", output_pdf, "\n")
+cat("All model summaries saved as PNGs in", output_dir, "\n")
