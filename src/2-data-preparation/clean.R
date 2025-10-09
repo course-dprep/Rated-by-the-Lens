@@ -13,8 +13,7 @@ dataset_photos <- read.csv("../../gen/data/photos.csv")
 ## Step 3: Merge dataset_photos and dataset_business using the "business_id"
 
 names(dataset_photos)[names(dataset_photos) == "id"] <- "business_id"
-
-merged_dataset <- merge(dataset_business, dataset_photos, by = "business_id") # Here, merged_dataset has more obs than dataset_business because businesses have more than one photo. This will be fixed in later steps.
+merged_dataset <- inner_join(dataset_business, dataset_photos, by = "business_id") #Here, merged_dataset has more obs than dataset_business because businesses have more than one photo. This will be fixed in later steps.
 
 ## Step 4: Remove unnecessary variables
 
