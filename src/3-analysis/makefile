@@ -1,16 +1,35 @@
-# Stage 3 — analysis & visualization
-.SILENT:
-.DELETE_ON_ERROR:
+# Stage 3 — Analysis and Visualization
 
-TEMP := ../../gen/temp
-OUT  := ../../gen/output
-ROOT := $(abspath ../..)
+# Paths
+DATA_DIR    = ../../gen/temp
+OUTPUT_DIR  = ../../gen/output
+SCRIPT_DIR  = .
+ROOT        = $(abspath ../..)
 
-.PHONY: all
-all: $(OUT)/Rplots.pdf
+VISUALIZE_SCRIPT = $(SCRIPT_DIR)/visualize.R
+ANALYSIS_SCRIPT  = $(SCRIPT_DIR)/analysis.R
+INPUT_DATA       = $(DATA_DIR)/final_dataset.csv
+OUTPUT_PDF       = $(OUTPUT_DIR)/analysis_output.pdf
+RMD_FILE         = $(OUTPUT_DIR)/analysis_report.Rmd
+REPORT_PDF       = $(OUTPUT_DIR)/analysis_output.pdf
 
-$(OUT)/Rplots.pdf: visualize.R $(TEMP)/final_dataset.csv
-	R -e "dir.create('$(OUT)', recursive = TRUE)"
-	Rscript -e "setwd('$(ROOT)'); source('src/3-analysis/visualize.R')"
+.PHONY: all clean visualize analysis
 
+# Default target: run both visualization and analysis
+all: visualize analysis
 
+# Visualization step
+visualize: $(VISUALIZE_SCRIPT)
+	R -e "dir.create('$(OUTPUT_DIR)', recursive = TRUE)"
+	Rscript visualize.R
+
+# Analysis step
+analysis: $(ANALYSIS_SCRIPT)
+	R -e "dir.create('$(OUTPUT_DIR)', recursive = TRUE)"
+	Rscript analysis.R
+
+# Clean outputs
+clean:
+	rm -f $(OUTPUT_DIR)/analysis_output.pdf
+	rm -f $(OUTPUT_DIR)/analysis_report.Rmd
+	@echo "Cleaned analysis output files."

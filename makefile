@@ -1,24 +1,41 @@
-.SILENT:
-.DELETE_ON_ERROR:
-.PHONY: all preview clean help
+# Main Makefile — Full Pipeline
 
-DATA := data
+MAKE := "$(MAKE)"
+
+.PHONY: all clean
+
+# Directory paths
+DATA := gen/data
 TEMP := gen/temp
 OUT  := gen/output
 
+# Default goal
 .DEFAULT_GOAL := all
+
+# Main build rule
 all: $(OUT)/report.pdf
 
-$(OUT)/report.pdf: $(TEMP)/final_dataset.csv src/3-analysis/visualize.R
+# Generate the final report
+$(OUT)/report.pdf: $(TEMP)/final_dataset.csv
 	$(MAKE) -C src/3-analysis all
+	Rscript -e "file.copy('$(OUT)/analysis_output.pdf', '$(OUT)/report.pdf', overwrite=TRUE)"
+	@echo "All analysis and plots saved in $(OUT)"
 
+# Stage 3 — Analysis and Visualization
+$(OUT)/report.pdf: $(TEMP)/final_dataset.csv
+	$(MAKE) -C src/3-analysis all
+	Rscript -e "file.copy('$(OUT)/analysis_output.pdf', '$(OUT)/report.pdf', overwrite=TRUE)"
+
+# Stage 2 — Data Preparation
 $(TEMP)/final_dataset.csv: $(DATA)/photos.csv $(DATA)/business.csv src/2-data-preparation/clean.R
 	$(MAKE) -C src/2-data-preparation all
 
+# Stage 1 — Download raw data
 $(DATA)/photos.csv $(DATA)/business.csv: src/1-raw-data/download.R
 	$(MAKE) -C src/1-raw-data all
 
+# Clean everything
 clean:
 	R -e "unlink('$(DATA)', recursive = TRUE)"
 	R -e "unlink('gen', recursive = TRUE)"
-	@echo "cleaned: $(DATA)/ and gen/"
+	@echo "Cleaned data/ and gen/ directories."
