@@ -1,0 +1,125 @@
+---
+title: "Final Paper: The Impact of Photos on Restaurant Ratings"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    keep_tex: true
+---
+
+**This project investigates how the volume of photos attached to Yelp reviews relates to a restaurant’s average ratings, and if the type of picture (menu, food & drink, or environment) affects this relationship.**
+
+# 1. Research motivation
+The influence of online reviews and electronic word of mouth (eWOM) on consumer perceptions and decision-making is evident in today’s digital society (Wang et al., 2021). As such, this phenomenon has been widely researched in marketing. The influence of reviews is especially pronounced in the case of “experience goods". For example, restaurant services are perceived as riskier to evaluate before purchase (Weisskopf, 2018). Previous findings suggest that by reading restaurant reviews, customers are able to reduce this perceived risk (Parikh et al., 2014). Further supporting this claim, Luca (2016, p.3) demonstrates that “a one-star increase in Yelp rating leads to a 5–9 percent increase in revenue”.
+
+Photos have become a key component of online reviews as they add a visual element that allows users to better communicate their opinions (Li et al., 2021). However, while text-based reviews have been extensively studied, the association between the number of photos included in reviews and a restaurant’s average rating remains underexplored. Additionally, current literature is limited with regard to how different types of photos may impact this relationship. To address this gap in the literature, the following research question has been formulated:
+
+# 2. Research question
+**How does the total number of photos included in Yelp reviews influence a restaurant’s average rating, and to what extent does the type of photo (food, environment, menu) moderate this relationship?**
+
+# 3. Managerial Relevance
+From a managerial and business perspective, the stakeholders, namely restaurant owners and managers, may gain a deeper understanding from the findings of this project on how to potentially raise ratings per restaurant, reduce average rating volatility and increase visibility and engagement. Luca (2016) concluded that the average rating of a restaurant guides customers to make informed decisions. Ultimately, this may lead to an improved reputation and subsequently increased customer demand.
+
+Furthermore, managers can enhance their marketing strategy by strategically encouraging customers to publish reviews with photos on platforms such as "Yelp" or "Tripadvisor" as it reduces customer uncertainty. To encourage reviews that include photos, managers may add QR codes on the menu or receipts that could incentivize customers with rewards for the uploaded photos. Additional innovative approaches are table toppers and Wi-Fi login prompts inviting the customers to share a photo of the food or environment. By prompting customers to share additional photos, managers may be more inclined to detect recurring issues, creating a feedback loop.
+
+# 4. Method
+To address the research question, data from the Yelp Open Dataset was prepared and cleaned. Additionally, new variables were created to provide more relevant insights into the relationship between photo volume and average rating. Before conducting the analysis, the dataset was explored using summary statistics and visualizations in ggplot2, which provided an initial understanding of the data. A linear regression was chosen as the research method because it is the most suitable approach for this project. It produces results that are straightforward to interpret while also incorporating the effect of photo type.
+
+As such, two linear regression models were estimated to answer the research question. First, a baseline model was used to assess the main effect of the total number of photos associated with a restaurant on its average star rating. This model allows us to get an initial understanding of this. Second, a main model incorporating moderators was estimated to investigate how different photo categories influence the relationship between total photo count and average rating. This approach allows for testing whether the impact of photo quantity differs depending on the type of photo (food and drink, menu, or environment).
+
+# 5. Data
+This project uses two data sets obtained from the [Yelp Open Dataset](https://business.yelp.com/data/resources/open-dataset/). One data set contains business-related information, while the other provides detailed photo data, including both the images and their associated classifications, such as "food," "drink," "menu," "inside," or "outside."
+
+To answer the research question, these two data sets were merged, cleaned, and transformed. This process resulted in "final_dataset.csv", which is the dataset that will be used for the analysis. This csv fileincludes 29,374 observations across 10 variables. An overview of these variables is provided below:
+```{r, echo=FALSE, message=FALSE}
+library(knitr)
+
+# Create the data frame
+df <- data.frame(
+  Variable = c("business_id", "name", "attributes", "categories", "stars", 
+               "review_count", "environment", "food & drink", "menu"),
+  Description = c(
+    "The unique Yelp ID of the business",
+    "The business name as shown on Yelp",
+    "The map on Yelp of a restaurant’s amenities, services, and policies",
+    "The list of Yelp categories of cuisines for the business",
+    "The average Yelp scale star rating (1–5)",
+    "The total number of Yelp reviews",
+    "The number of environment photos",
+    "The number of food & drink photos",
+    "The number of menu photos"
+  ),
+  Data_Class = c("Character", "Character", "List", "Character", "Numeric", 
+                 "Numeric", "Numeric", "Numeric", "Numeric")
+)
+
+kable(df, booktabs = TRUE, caption = "Overview of Variables in Yelp Dataset")
+
+```
+
+# 6. Data Exploration
+The initial data exploration is detailed data_exploration file.
+
+# 7. Analysis
+
+## 7.1 Baseline Model
+To gain an initial understanding of the relationship between the independent variable, total number of photos in reviews, and the dependent variable, average star rating of restaurants, a baseline linear regression model was estimated. The output of the linear regression is presented below:
+
+```{r main_effect_plot, echo=FALSE, out.width='80%', fig.align='center', fig.pos='H'}
+knitr::include_graphics("../gen/output/main_effect.png")
+```
+The key results are as follows:
+
+- Intercept (3.57): When a restaurant has no photos in its reviews, the expected average star rating is 3.57.
+- Total_photos (β = 0.0097, p < 0.001): Each additional photo in reviews is associated with an increase of approximately 0.01 points in the average star rating. This effect is statistically significant, as the p-value is below 0.05.
+
+These results provide a baseline understanding of the main relationship between photo volume and restaurant ratings. The positive and significant coefficient for total photos indicates that restaurants with more user-uploaded photos tend to receive slightly higher ratings. Although the effect size is modest, it is consistent and statistically significant, which suggests that the photos in user reviews play a role in shaping customer perceptions.
+
+## 7.2 Main Model: Linear Regression with Moderators
+To examine how the effect of total photo quantity on average restaurant ratings varies depending on the type of photo, a main model with moderators was estimated. This model includes both the individual photo categories (food and drink, menu, and environment) and an interaction term between the centered total number of photos and the dominant photo category for each restaurant. Mean-centering the total photo count allows for clearer interpretation of interaction effects.
+
+
+## 7.2.1 Model Interpretation
+### Main effects:
+The baseline model established a significant positive relationship between the total number of photos and the average star rating, with each additional photo associated with an average increase of 0.0097 stars. Building on this, the category-specific model explores how different photo types contribute to ratings:
+```{r model_categories_output, echo=FALSE, out.width='100%'}
+knitr::include_graphics("../gen/output/model_categories.png") 
+```
+
+- Intercept (3.57): When no photos are present, the expected average rating is 3.57.
+- Food & Drink (0.0003, p = 0.685): Each additional food or drink photo increases the rating by 0.0003 points on average; this effect is not statistically significant.
+- Menu (0.1328, p < 0.001): Each additional menu photo increases the rating by approximately 0.13 points on average, a highly significant effect.
+- Environment (0.0221, p < 0.001): Each additional environment photo increases the rating by about 0.02 points, also statistically significant.
+
+These results suggest that menu and environment photos are most influential in improving restaurant ratings, while food and drink photos do not have a meaningful impact.
+
+### Interaction effects:
+To examine whether the effect of total photo quantity depends on the dominant photo category, an interaction model was estimated:
+```{r model_central_moderation, echo=FALSE, out.width='100%'}
+knitr::include_graphics("../gen/output/model_central_moderation.png") 
+```
+
+As shown in the output, a higher number of photos is associated with slightly higher ratings. This is in line with the finding from the models above. Moreover, the output of the model shows that those restaurants where food and drink photos dominate tend to receive lower ratings on average, while ratings for menu-dominant restaurants are slightly higher. However, these results not statistically significant.
+
+Overall, the effect of total photos varies only minimally across photo categories, suggesting a generally consistent positive relationship between photo quantity and restaurant ratings.
+
+## 7.3 Summary of findings: 
+Overall, the findings suggest that both the number of photos does have a significant influence on restaurant ratings. Moreover, the main model suggests that menu and environment photos tend to have positive and significant effects on average ratings. However, the interaction results indicate that this effect is minimal.
+Moreover, it is important to note that the main model explains a modest portion of the variance (R² = 0.0266), highlighting that while visual content is relevant, other factors also play a substantial role in shaping restaurant ratings.
+
+# 8. Conclusion
+This project investigated the relationship between the number and type of photos in Yelp reviews and restaurants’ average star ratings. The analysis demonstrates that photos play a meaningful role in influencing ratings, but their impact varies by content category. Menu and environment photos are most influential, while food and drink photos alone have limited effect.
+
+From a managerial perspective, these findings provide actionable guidance for restaurants seeking to enhance their online reputation. Encouraging customers to upload specific types of photos through incentives or prompts can increase perceived quality, foster trust, and ultimately improve ratings. For review platforms such as Yelp, incorporating photo type alongside quantity into recommendation algorithms could improve the accuracy and relevance of suggestions for users.
+
+Overall, this study highlights the value of user-generated visual content in online reviews and its role in shaping consumer decision-making, providing both practical insights for businesses and a foundation for further research on visual eWOM in the restaurant industry.
+
+# References:
+Li, C., Kwok, L., Xie, K. L., Liu, J., & Ye, Q. (2021). Let Photos Speak: The Effect of User-Generated Visual Content on Hotel Review Helpfulness. Journal of Hospitality & Tourism Research, 47(4), 109634802110191. https://doi.org/10.1177/10963480211019113
+
+Luca, M. (2016). Reviews, Reputation, and Revenue: The Case of Yelp.com. Harvard Business School NOM Unit Working Paper, 12(016). https://doi.org/10.2139/ssrn.1928601
+
+Parikh, A., Behnke, C., Vorvoreanu, M., Almanza, B., & Nelson, D. (2014). Motives for reading and articulating user-generated restaurant reviews on Yelp.com. Journal of Hospitality and Tourism Technology, 5(2), 160–176. https://doi.org/10.1108/jhtt-04-2013-0011
+
+Wang, Y., Kim, J., & Kim, J. (2021). The financial impact of online customer reviews in the restaurant industry: A moderating effect of brand equity. International Journal of Hospitality Management, 95, 102895. https://doi.org/10.1016/j.ijhm.2021.102895
+
+Weisskopf, D. J.-P. (2018, September 30). Online Customer Reviews: Their Impact on Restaurants. Hospitalityinsights.ehl.edu. https://hospitalityinsights.ehl.edu/online-customer-reviews-restaurants
