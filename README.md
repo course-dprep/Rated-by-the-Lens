@@ -93,8 +93,8 @@ library(ggplot2)
 ## Running Instructions 
 
 Before proceeding please install the following:
-- **R** - [Install here] (https://tilburgsciencehub.com/topics/computer-setup/software-installation/rstudio/r/)
-- If you are a Windows user, also install **Make** - [Download here] (https://tilburgsciencehub.com/topics/automation/automation-tools/makefiles/make/)
+- **R** - [Install here](https://tilburgsciencehub.com/topics/computer-setup/software-installation/rstudio/r/)
+- If you are a Windows user, also install **Make** - [Download here](https://tilburgsciencehub.com/topics/automation/automation-tools/makefiles/make/)
 
 To run the code, do this: 
 1. Fork the repository on Github.
