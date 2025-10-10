@@ -18,7 +18,7 @@ Furthermore, managers can enhance their marketing strategy by strategically enco
 
 ## Data
 
-Firstly, to collect the required data, the datasets “dataset_business" and "dataset_photos" have been downloaded from Yelp Open Dataset, see https://business.yelp.com/data/resources/open-dataset/. Accordingly, we have built an R pipeline (tidyr and dyplr) that merged and cleaned the data.
+Firstly, to collect the required data, the datasets “dataset_business" and "dataset_photos" have been downloaded from [Yelp Open Dataset](https://business.yelp.com/data/resources/open-dataset/). Accordingly, we have built an R pipeline (tidyr and dyplr) that merged and cleaned the data.
 
 The steps executed after were:
 
@@ -92,13 +92,13 @@ library(ggplot2)
 ```
 ## Running Instructions 
 
-Before proceeding please install the following:
+Before proceeding, please install the following:
 - **R** - [Install here](https://tilburgsciencehub.com/topics/computer-setup/software-installation/rstudio/r/)
 - If you are a Windows user, also install **Make** - [Download here](https://tilburgsciencehub.com/topics/automation/automation-tools/makefiles/make/)
 
-To run the code, do this: 
+Instructions to run the code: 
 1. Fork the repository on Github.
-2. Open your command-line interface (Gitbash, Terminal, or Git GUI)
+2. Open your command-line or terminal.
 3. Clone the forked repository to your computer:
 ```bash
 git clone https://github.com/course-dprep/Rated-by-the-Lens.git
@@ -111,7 +111,7 @@ cd Rated-by-the-Lens
 ```bash
 make
 ```
-After executing 'make', it will generate the following output:
+After executing 'make', it will generate the following:
 - gen/data/ - downloaded data ('photos.csv and business.csv')
 - gen/temp/ - intermediate file ('final_dataset.csv')
 - gen/output/ - analysis outputs ('stars_total_photos.png', 'photo_category_plot.png', 
