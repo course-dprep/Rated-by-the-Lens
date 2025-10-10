@@ -56,8 +56,8 @@ Y = b0 +b1log(1 + Photos)+b2Menu + b3[log(1+Photos)xMenu] + e
 Here, “Menu” is the sole dummy variable where 1 occurs when menu/price photos are present and 0 if absent.
 
 ## Preview of Findings 
-Adding photos is associated with higher star ratings for restaurants dominated by environment photos, has a smaller positive effect for food & drink photos, and shows no significant effect for menu photos.
-These findings highlights the value of user-generated visual content in online reviews.
+Adding photos is associated with higher star ratings for restaurants dominated by food & drink photos, has a slightly smaller positive effect for environment photos, and shows no significant effect for menu photos. 
+These findings highlight the value of user-generated visual content in online reviews.
 
 ## Repository Overview 
 
