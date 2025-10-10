@@ -1,9 +1,10 @@
 ---
-title: "Final Paper: The Impact of Photos on Restaurant Ratings"
-output: 
+title: "Final_Paper"
+output:
   pdf_document:
+    toc: true
     latex_engine: xelatex
-    keep_tex: true
+    keep_tex:  true
 ---
 
 **This project investigates how the volume of photos attached to Yelp reviews relates to a restaurant’s average ratings, and if the type of picture (menu, food & drink, or environment) affects this relationship.**
@@ -171,3 +172,5 @@ Parikh, A., Behnke, C., Vorvoreanu, M., Almanza, B., & Nelson, D. (2014). Motive
 Wang, Y., Kim, J., & Kim, J. (2021). The financial impact of online customer reviews in the restaurant industry: A moderating effect of brand equity. International Journal of Hospitality Management, 95, 102895. https://doi.org/10.1016/j.ijhm.2021.102895
 
 Weisskopf, D. J.-P. (2018, September 30). Online Customer Reviews: Their Impact on Restaurants. Hospitalityinsights.ehl.edu. https://hospitalityinsights.ehl.edu/online-customer-reviews-restaurants
+
+
