@@ -1,5 +1,5 @@
 ---
-title: "Final_Paper"
+title: "Final_Paper: The Impact of Photos on Restaurant Ratings"
 output:
   pdf_document:
     toc: true
