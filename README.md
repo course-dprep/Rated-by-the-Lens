@@ -90,7 +90,35 @@ library(ggplot2)
 ```
 ## Running Instructions 
 
-*Provide step-by-step instructions that have to be followed to run this workflow.*
+Before proceeding please install the following:
+- **R** - [Install here] (https://tilburgsciencehub.com/topics/computer-setup/software-installation/rstudio/r/)
+- If you are a Windows user, also install **Make** - [Download here] (https://tilburgsciencehub.com/topics/automation/automation-tools/makefiles/make/)
+
+To run the code, do this: 
+1. Fork the repository on Github.
+2. Open your command-line interface (Gitbash, Terminal, or Git GUI)
+3. Clone the forked repository to your computer:
+```{r}
+git clone https://github.com/course-dprep/Rated-by-the-Lens.git
+```
+4. Set working directory to 'Rated-by-the-lens':
+```{r}
+cd Rated-by-the-Lens
+```
+5. Run the automated workflow with the following command:
+```{r}
+make
+```
+After executing 'make', it will generate the following output:
+- gen/data/ - downloaded data ('photos.csv and business.csv')
+- gen/temp/ - intermediate file ('final_dataset.csv')
+- gen/output/ - analysis outputs ('stars_total_photos.png', 'photo_category_plot.png', 
+'model _central_moderation.png', 'model_categories.png' and  'main_effect.png')
+6. Clean the project: 
+```{r}
+make clean
+```
+This removes the gen/ and data/ directories, resetting the project folder to its original state.
 
 ## About 
 This project is set up as part of the Master's course [Data Preparation & Workflow Management](https://dprep.hannesdatta.com/) at the [Department of Marketing](https://www.tilburguniversity.edu/about/schools/economics-and-management/organization/departments/marketing), [Tilburg University](https://www.tilburguniversity.edu/), the Netherlands.
