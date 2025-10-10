@@ -47,13 +47,15 @@ As follows, the “DataPreparationTeam9.Rmd” with 29.374 observations and 10 v
 
 ## Method
 
-This project will be based on the Multiple Linear Regression (MLR) as this model is utilized if a continuous dependent variable (DV) occurs with multiple independent variables (IVs). As opposed to a simple linear regression, MLR can test the interaction between the independent variable and moderator, allowing for a better understanding of how different types of photos affect business’ average ratings. 
+The project combines a series of linear regression models that were estimated in R. In order to create a baseline relationship between the average star rating and the total number of photos, the Simple Linear Regression (SLR) is firstly executed, which provides an initial measure of association. Subsequently, a Multiple Linear Regression (MLR) is estimated as the main model of the analysis. The MLR includes multiple predictors and an interaction (moderation) term, allowing for the assessment of how different photo types contribute to ratings and whether the effect of photo quantity varies depending on photo type. This approach provides a more detailed understanding of the combined and conditional effects of the photo content uploaded by customers on restaurant ratings.
 
-Furthermore, coefficients are immediately interpretable as changes in star rating. With the use of log(1+Photos) we capture the diminishing returns while also reducing leverage from large amounts of photos, including the 2 outliers above 400 in our sample. We applied MLR to assess whether the relationships are positive or negative and statistically significant. The regression is as follows:
+The main model is specified as:
 
-Y = b0 +b1log(1 + Photos)+b2Menu + b3[log(1+Photos)xMenu] + e
+Y=β0​+β1​(Photos)+β2​(Photo Category)+β3​(Photos×Photo Category)+ε
 
-Here, “Menu” is the sole dummy variable where 1 occurs when menu/price photos are present and 0 if absent.
+The average restaurant rating is denoted by Y, while the total number of photos is represented by Photos. The dominant type of photo is indicated by Photo Category (food and drink, menu, or environment), and the interaction term determines whether the effect of photo quantity varies across categories.
+
+All models were estimated using the lm() function in R, and results were visualized to support interpretation of both main and interaction effects.
 
 ## Preview of Findings 
 - Describe the gist of your findings (save the details for the final paper!)
