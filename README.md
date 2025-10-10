@@ -30,7 +30,7 @@ The steps executed after were:
 - Filtered for restaurants.
 - Performed a safety check.
 
-As follows, the “DataPreparationTeam9.Rmd” with 29.374 observations and 10 variables was obtained. The study will utilize and analyze the subsequent variables: 
+As follows, the “final_dataset.csv” with 29.374 observations and 10 variables was obtained. The study will utilize and analyze the subsequent variables: 
 | **Variable** 	| **Description**                                                     	| **Data Class** 	|
 |--------------	|---------------------------------------------------------------------	|----------------	|
 | business_id  	| The unique Yelp ID of the business                                  	| Character      	|
