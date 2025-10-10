@@ -120,7 +120,7 @@ After executing 'make', it will generate the following:
 ```bash
 make clean
 ```
-This removes the gen/ and data/ directories, resetting the project folder to its original state.
+This resets the project folder to its original state.
 
 ## About 
 This project is set up as part of the Master's course [Data Preparation & Workflow Management](https://dprep.hannesdatta.com/) at the [Department of Marketing](https://www.tilburguniversity.edu/about/schools/economics-and-management/organization/departments/marketing), [Tilburg University](https://www.tilburguniversity.edu/), the Netherlands.
