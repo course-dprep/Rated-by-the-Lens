@@ -18,7 +18,7 @@ Furthermore, managers can enhance their marketing strategy by strategically enco
 
 ## Data
 
-Firstly, to collect the required data, the datasets “dataset_business" and "dataset_photos" have been downloaded from Yelp Open Dataset, see https://business.yelp.com/data/resources/open-dataset/. Accordingly, we have built an R pipeline (tidyr and dyplr) that merged and cleaned the data.
+Firstly, to collect the required data, the datasets “dataset_business" and "dataset_photos" have been downloaded from [Yelp Open Dataset](https://business.yelp.com/data/resources/open-dataset/). Accordingly, we have built an R pipeline (tidyr and dyplr) that merged and cleaned the data.
 
 The steps executed after were:
 
@@ -30,7 +30,7 @@ The steps executed after were:
 - Filtered for restaurants.
 - Performed a safety check.
 
-As follows, the “DataPreparationTeam9.Rmd” with 29.374 observations and 10 variables was obtained. The study will utilize and analyze the subsequent variables: 
+As follows, the “final_dataset.csv” with 29.374 observations and 10 variables was obtained. The study will utilize and analyze the subsequent variables: 
 | **Variable** 	| **Description**                                                     	| **Data Class** 	|
 |--------------	|---------------------------------------------------------------------	|----------------	|
 | business_id  	| The unique Yelp ID of the business                                  	| Character      	|
@@ -47,22 +47,55 @@ As follows, the “DataPreparationTeam9.Rmd” with 29.374 observations and 10 v
 
 ## Method
 
-This project will be based on the Multiple Linear Regression (MLR) as this model is utilized if a continuous dependent variable (DV) occurs with multiple independent variables (IVs). As opposed to a simple linear regression, MLR can test the interaction between the independent variable and moderator, allowing for a better understanding of how different types of photos affect business’ average ratings. 
+The project combines a series of linear regression models that were estimated in R. In order to create a baseline relationship between the average star rating and the total number of photos, the Simple Linear Regression (SLR) is firstly executed, which provides an initial measure of association. Subsequently, a Multiple Linear Regression (MLR) is estimated as the main model of the analysis. The MLR includes multiple predictors and an interaction (moderation) term, allowing for the assessment of how different photo types contribute to ratings and whether the effect of photo quantity varies depending on photo type. This approach provides a more detailed understanding of the combined and conditional effects of the photo content uploaded by customers on restaurant ratings.
 
-Furthermore, coefficients are immediately interpretable as changes in star rating. With the use of log(1+Photos) we capture the diminishing returns while also reducing leverage from large amounts of photos, including the 2 outliers above 400 in our sample. We applied MLR to assess whether the relationships are positive or negative and statistically significant. The regression is as follows:
+The main model is specified as:
 
-Y = b0 +b1log(1 + Photos)+b2Menu + b3[log(1+Photos)xMenu] + e
+Y=β0​+β1​(Photos)+β2​(Photo Category)+β3​(Photos×Photo Category)+ε
 
-Here, “Menu” is the sole dummy variable where 1 occurs when menu/price photos are present and 0 if absent.
+The average restaurant rating is denoted by Y, while the total number of photos is represented by Photos. The dominant type of photo is indicated by Photo Category (food and drink, menu, or environment), and the interaction term determines whether the effect of photo quantity varies across categories.
+
+All models were estimated using the lm() function in R, and results were visualized to support interpretation of both main and interaction effects.
 
 ## Preview of Findings 
-- Describe the gist of your findings (save the details for the final paper!)
-- How are the findings/end product of the project deployed?
-- Explain the relevance of these findings/product. 
+Adding photos is associated with higher star ratings for restaurants dominated by food & drink photos, has a slightly smaller positive effect for environment photos, and shows no significant effect for menu photos. 
+These findings highlight the value of user-generated visual content in online reviews.
 
 ## Repository Overview 
 
-**Include a tree diagram that illustrates the repository structure*
+```
+Rated-by-the-Lens/
+├── src/
+│   ├── 1-raw-data/
+│   │   ├── download.R
+│   │   └── makefile
+│   ├── 2-data-preparation/
+│   │   ├── clean.R
+│   │   └── makefile
+│   └── 3-analysis/
+│       ├── analysis.R
+│       ├── visualize.R
+│       └── makefile
+├── gen/            # (ignored in Git) generated data, outputs, and temp files
+│   ├── data/
+│   │   ├── business.csv
+│   │   └── photos.csv
+│   ├── output/
+│   │   ├── main_effect.png
+│   │   ├── model_categories.png
+│   │   ├── model_central_moderation.png
+│   │   ├── photo_category_plot.png
+│   │   └── stars_total_photos.png
+│   └── temp/
+│       └── final_dataset
+├── reporting/
+│   ├── Final_Paper.RMD
+│   └── Data_Exploration_Report.RMD
+├── .gitignore
+├── README.md
+├── makefile
+```
+
 
 ## Dependencies 
 
@@ -74,10 +107,12 @@ This project relies on several R packages for data manipulation, cleaning, and v
 
 - ggplot2 – used for creating visualizations and plots
 
+- grid – used for saving model summaries as PNGs
+
 To install these packages (if not already installed), run the following in R:
 
 ```{r}
-install.packages(c("dplyr", "tidyr", "ggplot2"))
+install.packages(c("dplyr", "tidyr", "ggplot2", "grid"))
 ```
 Once installed, the libraries can be loaded with:
 
@@ -87,10 +122,40 @@ library(dplyr)
 library(tidyr)
 
 library(ggplot2)
+
+library(grid)
 ```
 ## Running Instructions 
 
-*Provide step-by-step instructions that have to be followed to run this workflow.*
+Before proceeding, please install the following:
+- **R** - [Install here](https://tilburgsciencehub.com/topics/computer-setup/software-installation/rstudio/r/)
+- If you are a Windows user, also install **Make** - [Download here](https://tilburgsciencehub.com/topics/automation/automation-tools/makefiles/make/)
+
+Instructions to run the code: 
+1. Fork the repository on Github.
+2. Open your command-line or terminal.
+3. Clone the forked repository to your computer:
+```bash
+git clone https://github.com/course-dprep/Rated-by-the-Lens.git
+```
+4. Set working directory to 'Rated-by-the-Lens':
+```bash
+cd Rated-by-the-Lens
+```
+5. Run the automated workflow with the following command:
+```bash
+make
+```
+After executing 'make', it will generate the following:
+- gen/data/ - downloaded data ('photos.csv and business.csv')
+- gen/temp/ - intermediate file ('final_dataset.csv')
+- gen/output/ - analysis outputs ('stars_total_photos.png', 'photo_category_plot.png', 
+'model _central_moderation.png', 'model_categories.png' and  'main_effect.png')
+6. Clean the project: 
+```bash
+make clean
+```
+This resets the project folder to its original state.
 
 ## About 
 This project is set up as part of the Master's course [Data Preparation & Workflow Management](https://dprep.hannesdatta.com/) at the [Department of Marketing](https://www.tilburguniversity.edu/about/schools/economics-and-management/organization/departments/marketing), [Tilburg University](https://www.tilburguniversity.edu/), the Netherlands.
