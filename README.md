@@ -63,6 +63,34 @@ Here, “Menu” is the sole dummy variable where 1 occurs when menu/price photo
 ## Repository Overview 
 
 **Include a tree diagram that illustrates the repository structure*
+Rated-by-the-Lens/
+├── src/
+│   ├── 1-raw-data/
+│   │   ├── download.R
+│   │   └── makefile
+│   ├── 2-data-preparation/
+│   │   ├── clean.R
+│   │   └── makefile
+│   └── 3-analysis/
+│       ├── analysis.R
+│       ├── visualize.R
+│       └── makefile
+├── gen/            # (ignored in Git) generated data, outputs, and temp files
+│   ├── data/
+│   │   ├── business.csv
+│   │   └── photos.csv
+│   ├── output/
+│   │   ├── main_effect.png
+│   │   ├── model_categories.png
+│   │   ├── model_central_moderation.png
+│   │   ├── photo_category_plot.png
+│   │   └── stars_total_photos.png
+│   └── temp/
+│       └── final_dataset
+├── report/
+│   ├── Final_Paper.RMD
+├── └── Data_Exploration_Report.RMD
+├── .gitignore
 
 ## Dependencies 
 
