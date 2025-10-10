@@ -138,7 +138,7 @@ Instructions to run the code:
 ```bash
 git clone https://github.com/course-dprep/Rated-by-the-Lens.git
 ```
-4. Set working directory to 'Rated-by-the-lens':
+4. Set working directory to 'Rated-by-the-Lens':
 ```bash
 cd Rated-by-the-Lens
 ```
