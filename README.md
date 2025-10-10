@@ -98,15 +98,15 @@ To run the code, do this:
 1. Fork the repository on Github.
 2. Open your command-line interface (Gitbash, Terminal, or Git GUI)
 3. Clone the forked repository to your computer:
-```{r}
+```bash
 git clone https://github.com/course-dprep/Rated-by-the-Lens.git
 ```
 4. Set working directory to 'Rated-by-the-lens':
-```{r}
+```bash
 cd Rated-by-the-Lens
 ```
 5. Run the automated workflow with the following command:
-```{r}
+```bash
 make
 ```
 After executing 'make', it will generate the following output:
@@ -115,7 +115,7 @@ After executing 'make', it will generate the following output:
 - gen/output/ - analysis outputs ('stars_total_photos.png', 'photo_category_plot.png', 
 'model _central_moderation.png', 'model_categories.png' and  'main_effect.png')
 6. Clean the project: 
-```{r}
+```bash
 make clean
 ```
 This removes the gen/ and data/ directories, resetting the project folder to its original state.
