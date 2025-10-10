@@ -58,13 +58,44 @@ The average restaurant rating is denoted by Y, while the total number of photos 
 All models were estimated using the lm() function in R, and results were visualized to support interpretation of both main and interaction effects.
 
 ## Preview of Findings 
-- Describe the gist of your findings (save the details for the final paper!)
-- How are the findings/end product of the project deployed?
-- Explain the relevance of these findings/product. 
+Adding photos is associated with higher star ratings for restaurants dominated by food & drink photos, has a slightly smaller positive effect for environment photos, and shows no significant effect for menu photos. 
+These findings highlight the value of user-generated visual content in online reviews.
 
 ## Repository Overview 
 
-**Include a tree diagram that illustrates the repository structure*
+```
+Rated-by-the-Lens/
+├── src/
+│   ├── 1-raw-data/
+│   │   ├── download.R
+│   │   └── makefile
+│   ├── 2-data-preparation/
+│   │   ├── clean.R
+│   │   └── makefile
+│   └── 3-analysis/
+│       ├── analysis.R
+│       ├── visualize.R
+│       └── makefile
+├── gen/            # (ignored in Git) generated data, outputs, and temp files
+│   ├── data/
+│   │   ├── business.csv
+│   │   └── photos.csv
+│   ├── output/
+│   │   ├── main_effect.png
+│   │   ├── model_categories.png
+│   │   ├── model_central_moderation.png
+│   │   ├── photo_category_plot.png
+│   │   └── stars_total_photos.png
+│   └── temp/
+│       └── final_dataset
+├── reporting/
+│   ├── Final_Paper.RMD
+│   └── Data_Exploration_Report.RMD
+├── .gitignore
+├── README.md
+├── makefile
+```
+
 
 ## Dependencies 
 
@@ -76,10 +107,12 @@ This project relies on several R packages for data manipulation, cleaning, and v
 
 - ggplot2 – used for creating visualizations and plots
 
+- grid – used for saving model summaries as PNGs
+
 To install these packages (if not already installed), run the following in R:
 
 ```{r}
-install.packages(c("dplyr", "tidyr", "ggplot2"))
+install.packages(c("dplyr", "tidyr", "ggplot2", "grid"))
 ```
 Once installed, the libraries can be loaded with:
 
@@ -89,6 +122,8 @@ library(dplyr)
 library(tidyr)
 
 library(ggplot2)
+
+library(grid)
 ```
 ## Running Instructions 
 

@@ -2,7 +2,6 @@
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-library(rmarkdown)
 library(grid)
 
 # Load the final dataset (path relative to src/3-analysis)
