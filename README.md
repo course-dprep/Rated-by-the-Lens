@@ -62,6 +62,7 @@ These findings highlight the value of user-generated visual content in online re
 ## Repository Overview 
 
 **Include a tree diagram that illustrates the repository structure*
+```
 Rated-by-the-Lens/
 ├── src/
 │   ├── 1-raw-data/
@@ -86,10 +87,13 @@ Rated-by-the-Lens/
 │   │   └── stars_total_photos.png
 │   └── temp/
 │       └── final_dataset
-├── report/
+├── reporting/
 │   ├── Final_Paper.RMD
-├── └── Data_Exploration_Report.RMD
+│   └── Data_Exploration_Report.RMD
 ├── .gitignore
+├── README.md
+├── makefile
+```
 
 ## Dependencies 
 
